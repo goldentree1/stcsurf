@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[functions]
+  directory = "server"
+
+[dev]
+  framework = "next"
+  command = "npx next dev"
