@@ -1,10 +1,10 @@
 import React from 'react';
 import Head from 'next/head';
-import Datepicker from '../../components/forecast/Datepicker';
-import Graphs from '../../components/forecast/Graph';
+import ForecastChanger from '../../components/forecast/ForecastChanger';
 import Layout from '../../components/layout';
 import { getAllLocationIDs, getForecast, getLocation } from 'utils/forecast';
-import { Chart } from 'react-chartjs-2'
+import SwellChart from '../../components/forecast/SwellChart';
+import WindChart from '../../components/forecast/WindChart';
 
 export async function getStaticPaths() {
     const paths = await getAllLocationIDs();
@@ -16,12 +16,11 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { id } }) {
     const location = await getLocation(id);
-    const forecast = await getForecast(id);
+    const forecast = await getForecast(id, new Date());
     return {
         props: {
-            id,
-            forecast,
-            location
+            forecast: JSON.stringify(forecast),
+            location: JSON.stringify(location)
         }
     }
 }
@@ -29,29 +28,32 @@ export async function getStaticProps({ params: { id } }) {
 export default class Forecast extends React.Component {
     constructor(props) {
         super(props);
+        const { forecast, location } = this.props;
         this.state = {
-            forecast: this.props.forecast, 
-            location: this.props.location
-        }
+            forecast: JSON.parse(forecast),
+            location: JSON.parse(location),
+        };
     }
 
-    handleDateChange = (newData) => {
-        //Logic is in the 'Datepicker'
-        alert(JSON.stringify(newData)); //proof it works
-        this.setState({ ...newData });
+    handleDateChange = (newForecast) => {
+        this.setState({ forecast: newForecast });
     }
 
     render() {
-        const { forecast, location } = this.state;
+        const { forecast, location, updated } = this.state;
         return (
             <Layout>
-                <Head>
-                    <title></title>
-                </Head>
-                <h1>{forecast.data.swellHeight}</h1>
-                <h2>{location.name}</h2>
-                <Graphs data={forecast} />
-                <Datepicker id={location.id} onDateChange={this.handleDateChange} />
+                <h2>
+                    Location {location.location.place}
+                </h2>
+                <WindChart data={forecast.data} />
+                <SwellChart data={forecast.data} />
+                <ForecastChanger
+                    id={location._id}
+                    onDateChange={this.handleDateChange}/>
+                <p>
+                    {JSON.stringify(forecast.data.time.data[0])}
+                </p>
             </Layout>
         )
     }

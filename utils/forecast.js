@@ -1,27 +1,31 @@
-export function getAllLocationIDs(){
-    return[
-        { params: { id: 'aramoana-spit' } },
-        { params: { id: 'st-clair' } }
-    ]
-} 
+import { connectMongo } from './connectMongo';
+import { Location } from "../models/Location";
+import { Forecast } from "../models/Forecast";
 
-export function getForecast(id, date = new Date()){    
-    //fetch forecast from db
-
-    //return data for build
-    return{
-        data:{
-            swellHeight: 3.2,
-            swellPeriod: 2.1,
-            face: 4.5
+export async function getAllLocationIDs() {
+    await connectMongo();
+    const locations = await Location.find({})
+    const IDs = locations.map((location) => ({
+        params:{
+            id: location.id
         }
-    }
+    }))
+    return IDs;
 }
 
-export function getLocation(id){
-    return{
-        name:'St Clair Beach',
-        lat: 45,
-        lon: 46,
-    }
+export async function getForecast(id, date = new Date()) {
+    await connectMongo();
+    const forecast = await Forecast.findOne({
+        location: id,
+        retrieved: {
+            $lte: new Date(date).setHours(23, 59, 59, 999)
+        }
+    }).sort({ retrieved: -1 });
+    return forecast;
+}
+
+export async function getLocation(id) {
+    await connectMongo();
+    const location = await Location.findById(id)
+    return location;
 }
