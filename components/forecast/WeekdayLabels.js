@@ -12,49 +12,6 @@ export const WeekdayLabels = {
         for (let label of labels) {
             ctx.fillText(label.date.toDateString().slice(0, 3), chart.chartArea.left + label.xShift, position)
         }
-
-        function computeLabelsAndPositions(dates, totalWidth) {
-            let xShift = 0;
-            let prevXShift = 0;
-            const oneUnitWidth = totalWidth / dates.length;
-            const dateStrings = dates.map(date => new Date(date).toDateString());
-            const uniqueDates = getUniqueValues(dateStrings).map(dateStr => new Date(dateStr));
-
-            //Make date objects
-            //Can probably simplify xShift - 
-            //We only use the most common units (8)...
-            //and never use other units.
-            const dateObjs = uniqueDates.map((date, i) => {
-                const units = numberOfOccurrences(date.toDateString(), dateStrings);
-                const width = units * oneUnitWidth;
-                xShift += i === 0 ? width / 2 : prevXShift;
-                prevXShift = width;
-                return {
-                    date,
-                    units,
-                    width,
-                    xShift,
-                };
-            });
-
-            //remove date objects that are past boundary.
-            return dateObjs.filter((dateObj) => {
-                return dateObj.xShift <= totalWidth;
-            })
-        };
-        function getUniqueValues(arr) {
-            return [... new Set(arr)];
-        };
-
-        function numberOfOccurrences(val, arr) {
-            let occurrences = 0;
-            for (let arrayVal of arr) {
-                if (val === arrayVal) {
-                    occurrences++;
-                }
-            }
-            return occurrences;
-        }
     },
     defaults: {
         dates: ["2022-10-19T11:00:00Z"],
@@ -63,4 +20,48 @@ export const WeekdayLabels = {
         fillStyle: 'rgb(0,0,0)',
         textAlign: 'center'
     }
+}
+
+function computeLabelsAndPositions(dates, totalWidth) {
+    let xShift = 0;
+    let prevXShift = 0;
+    const oneUnitWidth = totalWidth / dates.length;
+    const dateStrings = dates.map(date => new Date(date).toDateString());
+    const uniqueDates = getUniqueValues(dateStrings).map(dateStr => new Date(dateStr));
+
+    //Make date objects
+    //Can probably simplify xShift - 
+    //We only use the most common units (8)...
+    //and never use other units.
+    const dateObjs = uniqueDates.map((date, i) => {
+        const units = numberOfOccurrences(date.toDateString(), dateStrings);
+        const width = units * oneUnitWidth;
+        xShift += i === 0 ? width / 2 : prevXShift;
+        prevXShift = width;
+        return {
+            date,
+            units,
+            width,
+            xShift,
+        };
+    });
+
+    //remove date objects that are past boundary.
+    return dateObjs.filter((dateObj) => {
+        return dateObj.xShift <= totalWidth;
+    })
+};
+
+function getUniqueValues(arr) {
+    return [... new Set(arr)];
+};
+
+function numberOfOccurrences(val, arr) {
+    let occurrences = 0;
+    for (let arrayVal of arr) {
+        if (val === arrayVal) {
+            occurrences++;
+        }
+    }
+    return occurrences;
 }

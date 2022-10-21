@@ -2,6 +2,12 @@ import { connectMongo } from './connectMongo';
 import { Location } from "../models/Location";
 import { Forecast } from "../models/Forecast";
 
+export async function getAllLocationsData(){
+    await connectMongo();
+    const locations = await Location.find({});
+    return locations;
+}
+
 export async function getAllLocationIDs() {
     await connectMongo();
     const locations = await Location.find({})

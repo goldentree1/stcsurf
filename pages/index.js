@@ -1,7 +1,19 @@
 import Head from 'next/head'
+import Link from 'next/link';
 import Layout from '@components/layout';
+import { getAllLocationsData } from './../utils/forecast';
 
-export default function Home() {
+export async function getStaticProps() {
+  const locations = await getAllLocationsData();
+  return {
+    props: {
+      locationData: JSON.stringify(locations),
+    }
+  }
+}
+
+export default function Home({locationData}) {
+  const locations = JSON.parse(locationData)
   return (
     <Layout>
       <Head>
@@ -10,8 +22,20 @@ export default function Home() {
       </Head>
 
       <main>
-        <p>Hello</p>
+        <ul>
+          {locations.map((location)=>(
+            <li>
+              <Link href={`/forecast/${location._id}`}>
+                <a>{location.location.place}</a>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </main>
+
+
+
+
 
     </Layout>
   );

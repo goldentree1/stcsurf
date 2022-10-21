@@ -3,7 +3,6 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
-//IDEA: change this class to 'ForecastChanger', and make a separate Datepicker component for OOP sakes? Or not worth it?
 export default class ForecastChanger extends React.Component {
     constructor(props) {
         super(props);

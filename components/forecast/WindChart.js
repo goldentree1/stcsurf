@@ -1,9 +1,11 @@
 import React from 'react';
 import { Chart as ChartJS, CategoryScale, Filler, LinearScale, BarElement, Tooltip, PointElement, LineElement } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import {WeekdayLabels} from './WeekdayLabels'
+import {WeekdayLabels} from './WeekdayLabels';
+import annotationPlugin from 'chartjs-plugin-annotation';
+import constructDirectionArrowAnnotations from './DirectionArrows';
 
-ChartJS.register(WeekdayLabels, CategoryScale, LinearScale, BarElement, Filler, Tooltip, PointElement, LineElement);
+ChartJS.register(annotationPlugin, WeekdayLabels, CategoryScale, LinearScale, BarElement, Filler, Tooltip, PointElement, LineElement);
 
 export default class WindChart extends React.Component {
     constructor(props) {
@@ -25,7 +27,11 @@ export default class WindChart extends React.Component {
 
 //Helpers
 function constructOptions(data) {
-    const { time } = data;
+    const { wind10m, windDir10m, time } = data;
+    const annotations = {
+        ...constructDirectionArrowAnnotations(wind10m, windDir10m)
+    }
+    console.log(annotations);
     return{
        layout:{
             padding:{
@@ -36,6 +42,9 @@ function constructOptions(data) {
             weekdaylabels: {
                 dates: time.data,
                 position: 'top'
+            },
+            annotation:{
+                annotations
             }
         },
         scales: {
@@ -75,9 +84,9 @@ function constructOptions(data) {
 
 function constructData(data) {
     const { wind10m, windGust10m, windDir10m, time } = data;
-    const labels = time.data.map((UTCString) => {
-        return new Date(UTCString).getHours()
-    })
+    const labels = time.data.map((UTCString) => (
+        new Date(UTCString).getHours()
+    ));
     return {
         labels,
         datasets: [{
@@ -86,7 +95,6 @@ function constructData(data) {
             fill: true,
             backgroundColor: 'rgba(96, 119, 234, 0.5)',
             borderColor: 'rgb(96, 119, 234)',
-            borderWidth: 4
         },
         {
             label: 'Gusts',
