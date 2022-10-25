@@ -56,7 +56,7 @@ export default class Forecast extends React.Component {
                             onDateChange={this.handleDateChange}
                         />
                         <div className='mt-auto'>
-                            <small className=''>Forecast via {forecast.website}</small>
+                            <small className=''>Forecast via {forecast.website} at {forecast.retrieved}</small>
                         </div>
                     </aside>
                 </div>
