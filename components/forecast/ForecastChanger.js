@@ -17,7 +17,7 @@ export default class ForecastChanger extends React.Component {
             id,
             date: new Date(date).setHours(23, 59, 59, 999) 
         });
-        this.setState({ date });
+        this.setState({ date })
         onDateChange(res.data);
     }
 
