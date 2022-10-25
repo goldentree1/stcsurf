@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link';
 import Layout from '@components/layout';
-import { getAllLocationsData } from './../utils/forecast';
+import { getAllLocationsData } from './../utils/location';
 
 export async function getStaticProps() {
   const locations = await getAllLocationsData();
@@ -23,8 +23,8 @@ export default function Home({locationData}) {
 
       <main>
         <ul>
-          {locations.map((location)=>(
-            <li>
+          {locations.map((location, i)=>(
+            <li key={`forecast-link-${i}`}>
               <Link href={`/forecast/${location._id}`}>
                 <a>{location.location.place}</a>
               </Link>
@@ -32,11 +32,6 @@ export default function Home({locationData}) {
           ))}
         </ul>
       </main>
-
-
-
-
-
     </Layout>
   );
 };

@@ -2,8 +2,7 @@
 export default function Footer() {
   return (
     <>
-      <footer>
-        Swell-Forecast-2
+      <footer className="mt-3">
       </footer>
     </>
   )

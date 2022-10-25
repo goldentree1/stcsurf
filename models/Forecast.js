@@ -1,11 +1,16 @@
 import { Schema, models, model } from 'mongoose';
 
 const options = {
-    toJSON: {
-        virtuals: true,
+    autoIndex:true,
+    toJSON:{
+        virtuals:true,
+        getters:true,
+    },
+    toObject:{
+        virtuals:true,
+        getters:true,
     }
 }
-
 const forecastSchema = new Schema({
     location: {
         type: Schema.Types.ObjectId, //must be assigned to a location
@@ -21,9 +26,8 @@ const forecastSchema = new Schema({
         type: Date,
         required: true,
     },
-    data: {
-
-    }
+    data: {}
 }, options);
+
 
 export const Forecast = models.Forecast || model("Forecast", forecastSchema);

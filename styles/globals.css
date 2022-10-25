@@ -7,6 +7,5 @@ body {
 }
 
 * {
-  margin-top: 0.5rem; /*REMOVE THIS*/
   box-sizing: border-box;
 }

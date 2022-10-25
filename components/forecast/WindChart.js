@@ -1,57 +1,50 @@
 import React from 'react';
 import { Chart as ChartJS, CategoryScale, Filler, LinearScale, BarElement, Tooltip, PointElement, LineElement } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import {WeekdayLabels} from './WeekdayLabels';
 import annotationPlugin from 'chartjs-plugin-annotation';
-import constructDirectionArrowAnnotations from './DirectionArrows';
+import constructDirectionArrowAnnotations from './chartjs/PluginDirectionArrows';
+import WeekdayLabels from './chartjs/WeekdayLabels';
 
 ChartJS.register(annotationPlugin, WeekdayLabels, CategoryScale, LinearScale, BarElement, Filler, Tooltip, PointElement, LineElement);
 
-export default class WindChart extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        const { data } = this.props;
-        return (
-            <Line
-                data={constructData(data)}
-                width={400}
-                height={100}
-                options={constructOptions(data)}
-            />
-        )
-    }
+export default function WindChart({ data }) {
+    return (
+        <Line
+            data={constructData(data)}
+            width={400}
+            height={80}
+            options={constructOptions(data)}
+        />
+    )
 }
 
-//Helpers
+//Constructs Chart.js options object for WindChart
 function constructOptions(data) {
     const { wind10m, windDir10m, time } = data;
-    const annotations = {
-        ...constructDirectionArrowAnnotations(wind10m, windDir10m)
-    }
-    console.log(annotations);
-    return{
-       layout:{
-            padding:{
-                top: 50,
+    return {
+        layout: {
+            padding: {
+                top: 55,
+                right: 52,
             }
-       },
+        },
         plugins: {
             weekdaylabels: {
                 dates: time.data,
-                position: 'top'
+                position: 'top',
+                fontStyle:"bold 18px sans-serif"
             },
-            annotation:{
-                annotations
-            }
+            annotation: {
+                annotations:{
+                    ...constructDirectionArrowAnnotations(wind10m, windDir10m, 'orange'),
+                }
+            },
         },
         scales: {
             x: {
                 position: 'top',
                 grid: { display: false, }
-    
+
             },
             y: {
                 title: {
@@ -61,19 +54,9 @@ function constructOptions(data) {
                 beginAtZero: true,
                 grid: { display: false, },
             },
-            y1: {
-                title: {
-                    display: true,
-                    text: "Speed (m/s)"
-                },
-                beginAtZero: true,
-                grid: { display: false, },
-                display: true,
-                position: 'right'
+            y1:{
+                display:false,
             },
-            y2:{
-                display: false,
-            }
         },
         interaction: {
             intersect: false,
@@ -82,6 +65,7 @@ function constructOptions(data) {
     }
 }
 
+//Constructs Chart.js data object for WindChart
 function constructData(data) {
     const { wind10m, windGust10m, windDir10m, time } = data;
     const labels = time.data.map((UTCString) => (
@@ -92,22 +76,29 @@ function constructData(data) {
         datasets: [{
             label: 'Wind',
             data: wind10m,
-            fill: true,
-            backgroundColor: 'rgba(96, 119, 234, 0.5)',
-            borderColor: 'rgb(96, 119, 234)',
+            fill:true,
+            borderColor: 'rgba(155, 155, 155, 0.6)',
+            pointRadius:0,
+            backgroundColor:"white",
+            pointHoverRadius:10,
+            borderWidth: 3,
         },
         {
             label: 'Gusts',
             data: windGust10m,
-            borderColor: '#D1CFE2',
-            borderWidth: 4,
-            yAxisID: 'y1'
+            borderColor: "#d1cfe2a1",
+            pointRadius: 0,
+            pointHoverRadius:10,
+            borderWidth: 3,
+            yAxisID: 'y'
         },
         {
             label: 'Direction',
             data: windDir10m,
-            borderWidth: 4,
-            yAxisID: 'y2'
+            borderWidth: 0,
+            pointRadius:0,
+            pointHoverRadius:0,
+            yAxisID: 'y1'
         }]
     }
 }

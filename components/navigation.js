@@ -1,8 +1,7 @@
-import styles from './navigation.module.css';
 export default function Navigation() {
-  //change nav items to Link
+  //change
   return (
-    <header className={styles.container}>
+    <header>
       <div>
         Swell-Forecast-2
       </div>

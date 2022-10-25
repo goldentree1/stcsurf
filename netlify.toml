@@ -4,6 +4,7 @@
 
 [functions]
   directory = "server"
+  node_bundler = "esbuild"
 
 [dev]
   framework = "next"

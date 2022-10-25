@@ -1,7 +1,7 @@
 import React from "react";
 import axios from 'axios';
-import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
+import {DayPicker} from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
 
 export default class ForecastChanger extends React.Component {
     constructor(props) {
@@ -24,9 +24,10 @@ export default class ForecastChanger extends React.Component {
     render() {
         const { date } = this.state;
         return (
-            <DatePicker
+            <DayPicker
+                mode="single"
                 selected={date}
-                onChange={this.handleDateChange}
+                onSelect={this.handleDateChange}
             />
         )
     }

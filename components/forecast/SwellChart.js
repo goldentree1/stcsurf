@@ -1,36 +1,28 @@
 import React from 'react';
-import { Chart as ChartJS, CategoryScale, Filler, LinearScale, BarElement, Tooltip, PointElement, LineElement } from 'chart.js';
+import { Chart as ChartJS, BarElement, CategoryScale, Filler, LinearScale, LineElement, Tooltip, PointElement } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { WeekdayLabels } from './WeekdayLabels'
 import annotationPlugin from 'chartjs-plugin-annotation';
-import constructDirectionArrowAnnotations from './DirectionArrows';
+import constructDirectionArrowAnnotations from './chartjs/PluginDirectionArrows';
+import WeekdayLabels from './chartjs/WeekdayLabels';
 
-ChartJS.register(annotationPlugin, WeekdayLabels, CategoryScale, LinearScale, BarElement, Filler, Tooltip, PointElement, LineElement);
+ChartJS.register(annotationPlugin, BarElement, CategoryScale, Filler, LinearScale, LineElement, Tooltip, PointElement, WeekdayLabels);
 
-export default class SwellChart extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        const { data } = this.props;
-        return (
-            <Line
-                data={constructData(data)}
-                width={400}
-                height={170}
-                options={constructOptions(data)}
-            />
-        )
-    }
+export default function SwellChart({ data }) {
+    return (
+        <Line
+            data={constructData(data)}
+            width={400}
+            height={130}
+            options={constructOptions(data)}
+        />
+    )
 }
 
-
-//Helpers
+//Constructs Chart.js options object for SwellChart
 function constructOptions(data) {
     const { swell, direction, time } = data;
     const annotations = {
-        ...constructDirectionArrowAnnotations(swell, direction)
+        ...constructDirectionArrowAnnotations(swell, direction, "rgba(10, 118, 191, 1)")
     }
     return {
         layout: {
@@ -39,12 +31,9 @@ function constructOptions(data) {
             }
         },
         plugins: {
-            weekdaylabels: {
-                dates: time.data
-            },
             annotation: {
                 annotations
-            }
+            },
         },
         scales: {
             x: {
@@ -77,14 +66,19 @@ function constructOptions(data) {
             intersect: false,
             mode: 'index',
         },
+        animation:{
+            easing:'easeInOutQuad'
+        }
     }
 }
 
+//Constructs Chart.js data object for SwellChart
 function constructData(data) {
-    const { swell, chop, period, direction, time } = data;
+    const { swell, chop, period, face, direction, time } = data;
+    // const faces = calculateAllWaveFaces(swell, period, chop);
     const labels = time.data.map((UTCString) => {
         return new Date(UTCString).getHours()
-    })
+    });
 
     return {
         labels,
@@ -92,28 +86,37 @@ function constructData(data) {
             label: 'Swell',
             data: swell,
             fill: true,
-            backgroundColor: 'rgba(96, 119, 234, 0.5)',
-            borderColor: 'rgb(96, 119, 234)',
-            borderWidth: 0,
+            backgroundColor: 'rgba(34, 142, 215, 0.35)',
+            borderColor: 'rgba(54, 162, 235, 0.5)',
+            borderWidth: 3,
             pointRadius: 2,
+            pointHoverRadius: 10,
+        },
+        {
+            label: 'Face',
+            data: face,
+            borderDash: [5, 5],
+            borderColor: 'rgba(164, 172, 245, 0.9)',
+            borderWidth: 3,
+            pointRadius: 0,
             pointHoverRadius: 10,
         },
         {
             label: 'Chop',
             data: chop,
-            borderColor: '#D1CFE2',
-            borderDash: [10, 5],
-            borderWidth: 3,
+            fill: true,
+            backgroundColor: 'rgba(164, 172, 245, 0.2)',
+            borderWidth: 0,
             pointRadius: 0,
-            pointHoverRadius: 6,
+            pointHoverRadius: 10,
         },
         {
             label: 'Period',
             data: period,
-            borderColor: '#29E7CD',
-            borderWidth: 4,
+            borderColor: 'rgb(139, 166, 78)',
+            borderWidth: 3,
             pointRadius: 0,
-            pointHoverRadius: 8,
+            pointHoverRadius: 10,
             yAxisID: 'y1'
         },
         {

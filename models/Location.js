@@ -19,6 +19,9 @@ const locationSchema = new Schema({
             required:true,
         }
     },
+    pointsInDirection: { //TODO: INTEGRATE THIS
+        type: Number,
+    },
     geometry: { //geoJSON co-ords for mapbox.
         type: {
             type: String,

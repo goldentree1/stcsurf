@@ -1,24 +1,7 @@
 import { connectMongo } from './connectMongo';
-import { Location } from "../models/Location";
 import { Forecast } from "../models/Forecast";
 
-export async function getAllLocationsData(){
-    await connectMongo();
-    const locations = await Location.find({});
-    return locations;
-}
-
-export async function getAllLocationIDs() {
-    await connectMongo();
-    const locations = await Location.find({})
-    const IDs = locations.map((location) => ({
-        params:{
-            id: location.id
-        }
-    }))
-    return IDs;
-}
-
+//Returns forecast for given location ID and date
 export async function getForecast(id, date = new Date()) {
     await connectMongo();
     const forecast = await Forecast.findOne({
@@ -27,11 +10,20 @@ export async function getForecast(id, date = new Date()) {
             $lte: new Date(date).setHours(23, 59, 59, 999)
         }
     }).sort({ retrieved: -1 });
+
+    //Virtuals aren't working.. so just adding 'face' to data
+    const {swell, period, chop} = forecast.data;
+    forecast.data.face = calculateWaveFaces(swell, period, chop);
     return forecast;
 }
 
-export async function getLocation(id) {
-    await connectMongo();
-    const location = await Location.findById(id)
-    return location;
+//MONGOOSE VIRTUALS (well ... play-pretend ones...)
+//Returns values for 'faces' - this should be a mongoose virtual
+function calculateWaveFaces(swells, periods, chops){
+    const faces = swells.map((swell, i)=>{
+        if(!swell) return null;
+        const face = swell * periods[i] * 0.0896 + 0.624;
+        return face < chops[i] ? chops[i] : face;
+    })
+    return faces;
 }

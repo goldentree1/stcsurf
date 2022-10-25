@@ -1,7 +1,4 @@
 import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
-
 import Navigation from './navigation';
 import Footer from './footer';
 
@@ -13,8 +10,7 @@ export default function Layout({ children, pageName }) {
                 <meta name="description" content="Surf Forecast"/>
             </Head>
 
-            <Navigation page={pageName}/>
-            <main>
+            <main className="container-fluid d-flex flex-column">
                 {children}
             </main>
             <Footer />
