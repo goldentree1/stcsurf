@@ -7,7 +7,7 @@ export async function getForecast(id, date = new Date()) {
     const forecast = await Forecast.findOne({
         location: id,
         retrieved: {
-            $lte: new Date(date).setHours(23, 59, 59, 999)
+            $lte: new Date(date)
         }
     }).sort({ retrieved: -1 });
 
