@@ -8,6 +8,7 @@ export async function getForecast(id, date = new Date()) {
         location: id,
         retrieved: {
             $lte: new Date(date)
+            //TODO: make this check for $gte as well.
         }
     }).sort({ retrieved: -1 });
 

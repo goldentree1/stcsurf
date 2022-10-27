@@ -2,17 +2,17 @@ import React from 'react';
 import { Chart as ChartJS, CategoryScale, Filler, LinearScale, BarElement, Tooltip, PointElement, LineElement } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import annotationPlugin from 'chartjs-plugin-annotation';
-import constructDirectionArrowAnnotations from './chartjs/PluginDirectionArrows';
-import WeekdayLabels from './chartjs/WeekdayLabels';
+import constructDirectionArrowAnnotations from './chartjs/annotateDirArrows';
+import WeekdayLabels from './chartjs/pluginWeekdayLabels';
 
 ChartJS.register(annotationPlugin, WeekdayLabels, CategoryScale, LinearScale, BarElement, Filler, Tooltip, PointElement, LineElement);
 
 export default function WindChart({ data }) {
     return (
         <Line
+            width={100}
+            height={20}
             data={constructData(data)}
-            width={400}
-            height={80}
             options={constructOptions(data)}
         />
     )
@@ -32,10 +32,10 @@ function constructOptions(data) {
             weekdaylabels: {
                 dates: time.data,
                 position: 'top',
-                fontStyle:"bold 18px sans-serif"
+                fontStyle: "bold 18px sans-serif"
             },
             annotation: {
-                annotations:{
+                annotations: {
                     ...constructDirectionArrowAnnotations(wind10m, windDir10m, 'orange'),
                 }
             },
@@ -54,13 +54,9 @@ function constructOptions(data) {
                 beginAtZero: true,
                 grid: { display: false, },
             },
-            y1:{
-                display:false,
+            y1: {
+                display: false,
             },
-        },
-        interaction: {
-            intersect: false,
-            mode: 'index',
         },
     }
 }
@@ -68,36 +64,27 @@ function constructOptions(data) {
 //Constructs Chart.js data object for WindChart
 function constructData(data) {
     const { wind10m, windGust10m, windDir10m, time } = data;
-    const labels = time.data.map((UTCString) => (
-        new Date(UTCString).getHours()
-    ));
+    const labels = time.data.map((utc) => (new Date(utc).getHours()));
     return {
         labels,
         datasets: [{
             label: 'Wind',
             data: wind10m,
-            fill:true,
+            fill: true,
             borderColor: 'rgba(155, 155, 155, 0.6)',
-            pointRadius:0,
-            backgroundColor:"white",
-            pointHoverRadius:10,
-            borderWidth: 3,
+            backgroundColor:'rgba(0,0,0,0)'
         },
         {
             label: 'Gusts',
             data: windGust10m,
             borderColor: "#d1cfe2a1",
-            pointRadius: 0,
-            pointHoverRadius:10,
-            borderWidth: 3,
             yAxisID: 'y'
         },
         {
             label: 'Direction',
             data: windDir10m,
             borderWidth: 0,
-            pointRadius:0,
-            pointHoverRadius:0,
+            pointHoverRadius: 0,
             yAxisID: 'y1'
         }]
     }

@@ -1,6 +1,6 @@
 import { Schema, models, model } from 'mongoose';
 
-const options = {
+const options = { //not working in nextjs :-(
     autoIndex:true,
     toJSON:{
         virtuals:true,
