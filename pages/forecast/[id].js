@@ -55,9 +55,8 @@ export default class Forecast extends React.Component {
         })
     }
 
-    //TODO: styles - make the calender sticky position, so can update everything as we scroll!
-    //past the forecast can be tides, then photos / snapshots from webcams, then can be statistics
-    //styles-loading wave icon on calender somehow?
+    //TODO: 'Updated text' GIVES A HYDRATION ERROR IN PRODUCTION - probably bc
+    // time zones dont match - so they are different in server vs client.
     render() {
         const { forecast, location } = this.state;
         return (
@@ -77,6 +76,7 @@ export default class Forecast extends React.Component {
                     <aside className='sticky-xl-top top-0 col-xl-3 d-flex min-vh-100 flex-column justify-content-between pb-5 pt-3 align-items-center'>
                         <DateSelector onDateChange={this.handleDateChange} />
                         <div className='text-center'>
+                            Updated <b> {new Date(forecast.retrieved).toDateString()}</b> {new Date(forecast.retrieved).getHours()}:{new Date(forecast.retrieved).getMinutes()}
                             <br />
                             <small>
                                 Forecast data via <Link href='/'>{forecast.website}</Link>
