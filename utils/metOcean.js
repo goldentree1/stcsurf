@@ -1,13 +1,14 @@
 import axios from 'axios';
 import queryString from 'query-string';
+import { formatInTimeZone, zonedTimeToUtc } from 'date-fns-tz';
 
-const metOceanHeaders = {
+const headers = {
     headers: {
         'x-api-key': `${process.env.METOCEAN_API_KEY}`
     }
 };
 
-const metOceanVariablesMap = {
+const variablesMap = {
     chop: "wave.height",
     direction: "wave.direction.peak",
     period: "wave.period.peak",
@@ -17,17 +18,21 @@ const metOceanVariablesMap = {
     windDir10m: "wind.direction.at-10m",
 };
 
-export async function getMetOceanData(lat, lon) {
-    const url = metOceanQuery(lat, lon, Object.values(metOceanVariablesMap));
-    const metOceanData = await axios.get(url, metOceanHeaders);
-    const data = filterMetOceanData(metOceanVariablesMap, metOceanData);
-    return data; 
+export async function getMetOceanDataByLocation(location) {
+    const { metserviceCoordinates: { lat, lon }, timeZone } = location;
+    const query = makeMetOceanQueryString(lat, lon, Object.values(variablesMap), timeZone);
+    const metOceanData = await axios.get(query, headers);
+    const data = filterMetOceanData(metOceanData, variablesMap);
+    return data;
 };
 
-function metOceanQuery(lat, lon, variables) {
-    const from = new Date(); 
-    //CAN USE INTL instead... find time by timeZone, then subtract those hours to get time 0.
-    from.setHours(0, 0, 0, 0); //IMPORTANT: //Will have to set TZ in Netlify if using 'setHours()' due to different timezones....
+function makeMetOceanQueryString(lat, lon, variables, timeZone) {
+
+    //Start of timeZone's current day (i.e., 00:00)
+    const tzMostRecentMidnight = formatInTimeZone(new Date(), timeZone, 'yyyy-MM-dd 00:00:00XXX')
+    const from = zonedTimeToUtc(tzMostRecentMidnight, timeZone);
+
+    //Generate query string
     const query = `${process.env.METOCEAN_URL}${queryString.stringify({
         lat,
         lon,
@@ -39,7 +44,7 @@ function metOceanQuery(lat, lon, variables) {
     return query;
 };
 
-function filterMetOceanData(map, input) {
+function filterMetOceanData(input, map) {
     const output = {};
     const keys = Object.keys(map);
     keys.forEach((key) => {

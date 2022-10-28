@@ -6,7 +6,3 @@ export function connectMongo(){
     console.log("CONNECTED")
     return mongoose.connect(mongoUrl);
 }
-export function disconnectMongo(){
-    console.log("DISCONNECTED")
-    mongoose.disconnect()
-}

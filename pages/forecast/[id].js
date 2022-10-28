@@ -42,10 +42,6 @@ export default class Forecast extends React.Component {
     }
 
     handleDateChange = (date) => {
-        if (new Date(date) > new Date()) {  //INSTEAD OF THIS - make DateSelector have displayFutureDates={false}
-            throw new Error('Even we cant predict the future')
-        }
-
         axios.post("/api/forecast", {
             id: this.state.location._id,
             date: new Date(date).setHours(23, 59, 59, 999)

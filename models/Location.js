@@ -17,7 +17,11 @@ const locationSchema = new Schema({
         place:{
             type:String,
             required:true,
-        }
+        },
+    },
+    timeZone:{
+        type:String,
+        required:true, //TODO: Implement this
     },
     pointsInDirection: { //TODO: INTEGRATE THIS
         type: Number,
