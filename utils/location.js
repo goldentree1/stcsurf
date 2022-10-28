@@ -2,13 +2,13 @@ import { connectMongo } from './connectMongo';
 import { Location } from "../models/Location";
 
 export async function getAllLocationsData(){
-    await connectMongo();
+    connectMongo();
     const locations = await Location.find({});
     return locations;
 }
 
 export async function getAllLocationIDs() {
-    await connectMongo();
+    connectMongo();
     const locations = await Location.find({});
     const Ids = locations.map((location) => ({
         params:{
@@ -19,7 +19,7 @@ export async function getAllLocationIDs() {
 }
 
 export async function getLocation(id) {
-    await connectMongo();
+    connectMongo();
     const location = await Location.findById(id);
     return location;
 }
