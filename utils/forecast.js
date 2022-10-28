@@ -8,17 +8,16 @@ export async function getForecast(id, date = new Date()) {
         location: id,
         retrieved: {
             $lte: new Date(date)
-            //TODO: make this check for $gte as well.
+            //Check for $gte? Or could do client-side instead (may be better with local times?)
         }
-    }).sort({ retrieved: -1 });
+    }).sort({ retrieved: 'desc' });
 
-    //Virtuals aren't working.. so just adding 'face' to data
+    //'Pretend mongoose virtuals' - because they aint working.
     const {swell, period, chop} = forecast.data;
     forecast.data.face = calculateWaveFaces(swell, period, chop);
     return forecast;
 }
 
-//MONGOOSE VIRTUALS (well ... play-pretend ones...)
 //Returns values for 'faces' - this should be a mongoose virtual
 function calculateWaveFaces(swells, periods, chops){
     const faces = swells.map((swell, i)=>{

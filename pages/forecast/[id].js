@@ -1,18 +1,18 @@
 import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import DateSelector from '../../components/DateSelector';
-import Layout from '../../components/layout';
-import axios from 'axios';
 import Image from 'next/image';
-import stClairMap from './../../public/stclair_map_scrnshot.png';
-
-import { getForecast } from 'utils/forecast';
+import axios from 'axios';
+import stClairMap from 'public/stclair_map_scrnshot.png';
+import Layout from '@components/layout';
+import DateSelector from '@components/DateSelector';
+import SwellChart from '@components/forecast/SwellChart';
+import WindChart from '@components/forecast/WindChart';
 import { getAllLocationIDs, getLocation } from 'utils/location';
-import SwellChart from '../../components/forecast/SwellChart';
-import WindChart from '../../components/forecast/WindChart';
+import { getForecast } from 'utils/forecast';
 
 export async function getStaticPaths() {
+    //Should we connect to DB once here??
     const paths = await getAllLocationIDs();
     return {
         paths,
@@ -68,18 +68,13 @@ export default class Forecast extends React.Component {
         return (
             <Layout>
                 <div className='container my-5 d-flex flex-column align-items-center'>
-                    <h1 className='display-2 my-5 text-center'>
+                    <h1 className='display-1 my-5 text-center'>
                         Surf Forecast for {location.location.place}, {location.location.city}, {location.location.country}
                     </h1>
-                    <Image
-                        src={stClairMap}
-                        alt='HI'
-                        width={600}
-                        height={300} />
                 </div>
                 <div className='row'>
                     <section className='col-xl-9 m-0 p-0 mt-4'>
-                        <div className='shadow-lg rounded-3 p-3'>
+                        <div className='shadow-lg p-3 border'>
                             <WindChart data={forecast.data} />
                             <SwellChart data={forecast.data} />
                         </div>
@@ -94,15 +89,12 @@ export default class Forecast extends React.Component {
                             </small>
                         </div>
                     </aside>
-                    <div className='py-5'>
-                        <Image
-                            src={stClairMap}
-                            alt='HI'
-                            width={600}
-                            height={300} />
+                    <div className='col-xl-9 mb-5 p-0'>
+                        <div className="alert bg-white shadow-lg py-5 mw-100 alert-success alert-dismissible fade show text-center rounded-0" role="alert">
+                            Had a good surf lately? <a href="#" className="alert-link">Keep a record</a> so we can notify you when it's on again!
+                        </div>
                     </div>
                 </div>
-
             </Layout>
         )
     }

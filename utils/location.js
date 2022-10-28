@@ -9,17 +9,17 @@ export async function getAllLocationsData(){
 
 export async function getAllLocationIDs() {
     await connectMongo();
-    const locations = await Location.find({})
-    const IDs = locations.map((location) => ({
+    const locations = await Location.find({});
+    const Ids = locations.map((location) => ({
         params:{
             id: location.id
         }
     }))
-    return IDs;
+    return Ids;
 }
 
 export async function getLocation(id) {
     await connectMongo();
-    const location = await Location.findById(id)
+    const location = await Location.findById(id);
     return location;
 }

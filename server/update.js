@@ -1,14 +1,27 @@
-// import {connectMongoose} from '../utils/connectMongo';
-// import Location from '../models/Location'
-export const handler = async function(event, context){
-    // const db = await connectMongoose();
-    // const locations = await Location.find({});
-    //event and context are provided by netlify.
-    //handler receives event object... context is other context in which function is called.
-    return{
+// import { schedule } from '@netlify/functions';
+import { Forecast } from 'models/Forecast';
+import { getMetOceanData } from 'utils/metOcean';
+import { getAllLocationsData } from 'utils/location';
+
+const updateForecasts = async function (event, context) {
+    const locations = await getAllLocationsData();
+    const forecasts=[];//
+    locations.forEach(async (location) => {
+        const { metserviceCoordinates: { lat, lon } } = location;
+        const data = await getMetOceanData(lat, lon);
+        const forecast = new Forecast({
+            data,
+            location,
+            retrieved: new Date(),
+            website: "metocean"
+        });
+        forecasts.push(forecast);//
+    });
+    //TODO: trigger a NextJS re-build here.
+    return {
         statusCode: 200,
-        body: JSON.stringify({
-            message:"HELLO",
-    })
+        forecasts//
     }
-}
+};
+export const handler = updateForecasts;
+// export const handler = schedule("@hourly", updateForecasts);

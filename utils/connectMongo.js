@@ -1,6 +1,12 @@
 import mongoose from 'mongoose';
-const MONGO_URL = 'mongodb+srv://eb:ICbirNbdgyA72O85@cluster0.zsfs34t.mongodb.net/?retryWrites=true&w=majority';
 
-export async function connectMongo(){
+const MONGO_URL = process.env.MONGO_ATLAS_URL;
+
+export function connectMongo(){
+    console.log("CONNECTED")
     return mongoose.connect(MONGO_URL);
+}
+export function disconnectMongo(){
+    console.log("DISCONNECTED")
+    mongoose.disconnect()
 }
