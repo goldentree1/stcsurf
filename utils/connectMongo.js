@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 
-const MONGO_URL = process.env.MONGO_ATLAS_URL;
+const mongoUrl = process.env.MONGO_ATLAS_URL;
 
-export async function connectMongo(){
+export function connectMongo(){
     console.log("CONNECTED")
-    return mongoose.connect(MONGO_URL);
+    return mongoose.connect(mongoUrl);
 }
-export async function disconnectMongo(){
+export function disconnectMongo(){
     console.log("DISCONNECTED")
     mongoose.disconnect()
 }

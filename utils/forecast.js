@@ -3,7 +3,7 @@ import { Forecast } from "../models/Forecast";
 
 //Returns forecast for given location ID and date
 export async function getForecast(id, date = new Date()) {
-    await connectMongo();
+    connectMongo();
     const forecast = await Forecast.findOne({
         location: id,
         retrieved: {
