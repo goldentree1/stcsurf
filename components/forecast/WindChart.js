@@ -36,7 +36,7 @@ function constructOptions(data) {
             },
             annotation: {
                 annotations: {
-                    // ...constructDirectionArrowAnnotations(wind10m, windDir10m, 'orange'),
+                    ...constructDirectionArrowAnnotations(wind10m, windDir10m, 'orange'),
                 }
             },
         },

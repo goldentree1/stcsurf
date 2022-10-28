@@ -77,7 +77,6 @@ export default class Forecast extends React.Component {
                     <aside className='sticky-xl-top top-0 col-xl-3 d-flex min-vh-100 flex-column justify-content-between pb-5 pt-3 align-items-center'>
                         <DateSelector onDateChange={this.handleDateChange} />
                         <div className='text-center'>
-                            Updated <b> {new Date(forecast.retrieved).toDateString()}</b> {new Date(forecast.retrieved).getHours()}:{new Date(forecast.retrieved).getMinutes()}
                             <br />
                             <small>
                                 Forecast data via <Link href='/'>{forecast.website}</Link>
