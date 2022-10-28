@@ -4,6 +4,8 @@ import Link from 'next/link';
 import DateSelector from '../../components/DateSelector';
 import Layout from '../../components/layout';
 import axios from 'axios';
+import Image from 'next/image';
+import stClairMap from './../../public/stclair_map_scrnshot.png';
 
 import { getForecast } from 'utils/forecast';
 import { getAllLocationIDs, getLocation } from 'utils/location';
@@ -65,10 +67,15 @@ export default class Forecast extends React.Component {
         const { forecast, location } = this.state;
         return (
             <Layout>
-                <div className='container'>
+                <div className='container my-5 d-flex flex-column align-items-center'>
                     <h1 className='display-2 my-5 text-center'>
-                       Surf Forecast for {location.location.place}, {location.location.city}, {location.location.country}
+                        Surf Forecast for {location.location.place}, {location.location.city}, {location.location.country}
                     </h1>
+                    <Image
+                        src={stClairMap}
+                        alt='HI'
+                        width={600}
+                        height={300} />
                 </div>
                 <div className='row'>
                     <section className='col-xl-9 m-0 p-0 mt-4'>
@@ -87,9 +94,13 @@ export default class Forecast extends React.Component {
                             </small>
                         </div>
                     </aside>
-                    <div className='my-5 py-5'></div>
-                    <div className='my-5 py-5'></div>
-                    <div className='my-5 py-5'></div>
+                    <div className='py-5'>
+                        <Image
+                            src={stClairMap}
+                            alt='HI'
+                            width={600}
+                            height={300} />
+                    </div>
                 </div>
 
             </Layout>

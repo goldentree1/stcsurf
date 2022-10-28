@@ -7,7 +7,7 @@ export default function Navigation() {
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       <div className="container d-flex justify-content-between align-items-center">
-        <div className="h3">
+        <div className="h4">
           Swell-Forecast-2
         </div>
         <nav className="d-flex" style={{gap:'1.75rem'}}>
