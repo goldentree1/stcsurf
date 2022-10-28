@@ -12,7 +12,6 @@ import { getAllLocationIDs, getLocation } from 'utils/location';
 import { getForecast } from 'utils/forecast';
 
 export async function getStaticPaths() {
-    //Should we connect to DB once here??
     const paths = await getAllLocationIDs();
     return {
         paths,

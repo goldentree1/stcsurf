@@ -1,5 +1,3 @@
-import arrowSvg from '../../../public/direction_arrow.svg'
-
 export default function constructDirectionArrowAnnotations(arr, direction, color) {
     if (typeof window !== 'undefined') {
         const annotations = {}
