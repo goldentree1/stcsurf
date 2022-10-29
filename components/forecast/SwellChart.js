@@ -30,7 +30,7 @@ export default function SwellChart({ data }) {
 function constructOptions(data) {
     const { swell, direction, time } = data;
     const annotations = {
-        // ...constructDirectionArrowAnnotations(swell, direction, "rgba(10, 118, 191, 1)")
+        ...constructDirectionArrowAnnotations(swell, direction, "rgba(10, 118, 191, 1)")
     }
     return {
         layout: {
