@@ -7,18 +7,28 @@ import { getAllLocationsData } from 'utils/location';
 const updateForecasts = async function (event, context) {
     await connectMongo();
     const locations = await getAllLocationsData();
-    locations.forEach(async (location) => {
+    for(let location of locations){
         const data = await getMetOceanDataByLocation(location);
-        console.log("DATA RETRIEVED: " + data);
         const forecast = new Forecast({
             data,
             location,
             retrieved: new Date(),
             website: "metocean"
         });
-        const saved = await forecast.save()
-        console.log("SAVED FORECAST?: " + saved);
-    });
+        await forecast.save()
+    }
+    // locations.forEach(async (location) => {
+    //     const data = await getMetOceanDataByLocation(location);
+    //     const forecast = new Forecast({
+    //         data,
+    //         location,
+    //         retrieved: new Date(),
+    //         website: "metocean"
+    //     });
+
+    //     // const saved = await forecast.save()
+    //     console.log("FORECAST: " + forecast);
+    // });
     //TODO: trigger a NextJS re-build here.
     return {
         statusCode: 200,
