@@ -6,7 +6,7 @@ import { getMetOceanDataByLocation } from 'utils/metOcean';
 import { getAllLocationsData } from 'utils/location';
 
 const updateForecasts = async function (event, context) {
-    await connectMongo();
+    connectMongo();
     const locations = await getAllLocationsData();
     for(let location of locations){
         const data = await getMetOceanDataByLocation(location);
@@ -20,7 +20,7 @@ const updateForecasts = async function (event, context) {
     }
     
     //Trigger page re-build
-    axios.post(`${process.env.REBUILD_HOOK}`);
+    await axios.post(`${process.env.REBUILD_HOOK}`);
 
     return {
         statusCode: 200,
