@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { schedule } from '@netlify/functions';
 import { Forecast } from 'models/Forecast';
 import { connectMongo } from 'utils/connectMongo';
@@ -5,7 +6,7 @@ import { getMetOceanDataByLocation } from 'utils/metOcean';
 import { getAllLocationsData } from 'utils/location';
 
 const updateForecasts = async function (event, context) {
-    await connectMongo();
+    // connectMongo();
     const locations = await getAllLocationsData();
     for(let location of locations){
         const data = await getMetOceanDataByLocation(location);
@@ -17,19 +18,10 @@ const updateForecasts = async function (event, context) {
         });
         await forecast.save()
     }
-    // locations.forEach(async (location) => {
-    //     const data = await getMetOceanDataByLocation(location);
-    //     const forecast = new Forecast({
-    //         data,
-    //         location,
-    //         retrieved: new Date(),
-    //         website: "metocean"
-    //     });
+    
+    //Trigger page re-build
+    axios.post(`${process.env.REBUILD_HOOK}`);
 
-    //     // const saved = await forecast.save()
-    //     console.log("FORECAST: " + forecast);
-    // });
-    //TODO: trigger a NextJS re-build here.
     return {
         statusCode: 200,
     }
