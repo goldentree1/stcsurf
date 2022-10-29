@@ -1,6 +1,6 @@
 import axios from 'axios';
 import queryString from 'query-string';
-import { formatInTimeZone, zonedTimeToUtc } from 'date-fns-tz';
+import { formatInTimeZone, getTimezoneOffset, zonedTimeToUtc } from 'date-fns-tz';
 
 const headers = {
     headers: {
@@ -29,8 +29,19 @@ export async function getMetOceanDataByLocation(location) {
 function makeMetOceanQueryString(lat, lon, variables, timeZone) {
 
     //Start of timeZone's current day (i.e., 00:00)
-    const tzMostRecentMidnight = formatInTimeZone(new Date(), timeZone, 'yyyy-MM-dd 00:00:00XXX')
-    const from = zonedTimeToUtc(tzMostRecentMidnight, timeZone);
+    //PREV CODE:
+    // const tzMostRecentMidnight = formatInTimeZone(new Date(), timeZone, 'yyyy-MM-dd 00:00:00XXX')
+    // const from = zonedTimeToUtc(tzMostRecentMidnight, timeZone);
+    //
+    console.log(timeZone)
+    const offset = getTimezoneOffset(timeZone, new Date());
+    const nowUtc = new Date().toISOString()
+    console.log(nowUtc)
+    const offset2 = getTimezoneOffset('America/New_York', new Date());
+    console.log("TIMEZONE OFFSET: " + offset);
+    console.log("TIMEZONE OFFSET2: " + offset2);
+    const from = new Date();
+    from.setHours(0,0,0,0);
 
     //Generate query string
     const query = `${process.env.METOCEAN_URL}${queryString.stringify({

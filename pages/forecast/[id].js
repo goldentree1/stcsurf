@@ -56,7 +56,8 @@ export default class Forecast extends React.Component {
     }
 
     //TODO: 'Updated text' GIVES A HYDRATION ERROR IN PRODUCTION - probably bc
-    // time zones dont match - so they are different in server vs client.
+    // time zones dont match - so they are different in server vs client. 
+    //Keeping it as just 'forecast.retrieved' works fine
     render() {
         const { forecast, location } = this.state;
         return (
@@ -73,7 +74,7 @@ export default class Forecast extends React.Component {
                             <SwellChart data={forecast.data} />
                         </div>
                     </section>
-                    <aside className='sticky-xl-top top-0 col-xl-3 d-flex min-vh-100 flex-column justify-content-between pb-5 pt-3 align-items-center'>
+                    <aside className='sticky-xl-top top-0 col-xl-3 d-flex min-vh-100 vh-100 flex-column justify-content-between pb-5 pt-3 align-items-center'>
                         <DateSelector onDateChange={this.handleDateChange} />
                         <div className='text-center'>
                             Updated <b>{forecast.retrieved}</b>

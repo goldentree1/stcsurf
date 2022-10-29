@@ -16,7 +16,7 @@ const updateForecasts = async function (event, context) {
             retrieved: new Date(),
             website: "metocean"
         });
-        await forecast.save()
+        // await forecast.save()
     }
     
     //Trigger page re-build
