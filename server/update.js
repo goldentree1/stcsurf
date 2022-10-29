@@ -6,7 +6,7 @@ import { getMetOceanDataByLocation } from 'utils/metOcean';
 import { getAllLocationsData } from 'utils/location';
 
 const updateForecasts = async function (event, context) {
-    // connectMongo();
+    await connectMongo();
     const locations = await getAllLocationsData();
     for(let location of locations){
         const data = await getMetOceanDataByLocation(location);
