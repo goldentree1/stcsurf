@@ -13,7 +13,7 @@ const updateForecasts = async function (event, context) {
             retrieved: new Date(),
             website: "metocean"
         });
-        forecast.save()
+        await forecast.save()
     });
     //TODO: trigger a NextJS re-build here.
     return {

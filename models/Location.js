@@ -1,27 +1,27 @@
 import { Schema, models, model } from 'mongoose';
 
 const locationSchema = new Schema({
-    location:{
-        country:{
-            type:String,
-            required:true,
+    location: {
+        country: {
+            type: String,
+            required: true,
         },
-        state:{
-            type:String,
-            required:true,
+        state: {
+            type: String,
+            required: true,
         },
-        city:{
-            type:String,
-            required:true,
+        city: {
+            type: String,
+            required: true,
         },
-        place:{
-            type:String,
-            required:true,
+        place: {
+            type: String,
+            required: true,
         },
     },
-    timeZone:{
-        type:String,
-        required:true, //TODO: Implement this
+    timeZone: {
+        type: String,
+        required: true,
     },
     pointsInDirection: { //TODO: INTEGRATE THIS
         type: Number,
@@ -37,14 +37,14 @@ const locationSchema = new Schema({
             required: true,
         },
     },
-    metserviceCoordinates:{ //co-ords for surf forecast (has to be a bit off the coast!)
-        lat:{
-            type:Number,
-            required:true,
+    metserviceCoordinates: { //co-ords for surf forecast (has to be a bit off the coast!)
+        lat: {
+            type: Number,
+            required: true,
         },
-        lon:{
-            type:Number,
-            required:true,
+        lon: {
+            type: Number,
+            required: true,
         }
     },
 });

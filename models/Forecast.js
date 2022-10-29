@@ -1,19 +1,19 @@
 import { Schema, models, model } from 'mongoose';
 
 const options = { //not working in nextjs :-(
-    autoIndex:true,
-    toJSON:{
-        virtuals:true,
-        getters:true,
+    autoIndex: true,
+    toJSON: {
+        virtuals: true,
+        getters: true,
     },
-    toObject:{
-        virtuals:true,
-        getters:true,
+    toObject: {
+        virtuals: true,
+        getters: true,
     }
 }
 const forecastSchema = new Schema({
     location: {
-        type: Schema.Types.ObjectId, //must be assigned to a location
+        type: Schema.Types.ObjectId,
         ref: "Location",
         required: true,
     },
