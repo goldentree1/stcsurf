@@ -3,7 +3,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import axios from 'axios';
-import stClairMap from 'public/stclair_map_scrnshot.png';
 import Layout from '@components/layout';
 import DateSelector from '@components/DateSelector';
 import SwellChart from '@components/forecast/SwellChart';
@@ -21,7 +20,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { id } }) {
     const location = await getLocation(id);
-    const forecast = await getForecast(id, new Date());
+    const forecast = await getForecast(id, new Date()); //netlify time?? make this local time?
     return {
         props: {
             forecast: JSON.stringify(forecast),
@@ -63,7 +62,7 @@ export default class Forecast extends React.Component {
         return (
             <Layout>
                 <div className='container my-5 d-flex flex-column align-items-center'>
-                    <h1 className='display-1 my-5 text-center'>
+                    <h1 className=' my-5 '>
                         Surf Forecast for {location.location.place}, {location.location.city}, {location.location.country}
                     </h1>
                 </div>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { schedule } from '@netlify/functions';
+// import { schedule } from '@netlify/functions';
 import { Forecast } from 'models/Forecast';
 import { connectMongo } from 'utils/connectMongo';
 import { getMetOceanDataByLocation } from 'utils/metOcean';
@@ -20,11 +20,11 @@ const updateForecasts = async function (event, context) {
     }
     
     //Trigger page re-build
-    await axios.post(`${process.env.REBUILD_HOOK}`);
+    // await axios.post(`${process.env.REBUILD_HOOK}`);
 
     return {
         statusCode: 200,
     }
 };
-// export const handler = updateForecasts;
-export const handler = schedule("@hourly", updateForecasts);
+export const handler = updateForecasts;
+// export const handler = schedule("@hourly", updateForecasts);

@@ -32,7 +32,7 @@ function makeMetOceanQueryString(lat, lon, variables, timeZone) {
     //PREV CODE:
     // const tzMostRecentMidnight = formatInTimeZone(new Date(), timeZone, 'yyyy-MM-dd 00:00:00XXX')
     // const from = zonedTimeToUtc(tzMostRecentMidnight, timeZone);
-    //
+    
     console.log(timeZone)
     const offset = getTimezoneOffset(timeZone, new Date());
     const nowUtc = new Date().toISOString()
@@ -64,4 +64,3 @@ function filterMetOceanData(input, map) {
     output.time = input.data.dimensions.time;
     return output;
 };
-
