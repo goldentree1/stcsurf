@@ -21,6 +21,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params: { id } }) {
     const location = await getLocation(id);
     const forecast = await getForecast(id, new Date()); //netlify time?? make this local time?
+    // const tides = await getTides(id, new Date())
     return {
         props: {
             forecast: JSON.stringify(forecast),
@@ -67,13 +68,13 @@ export default class Forecast extends React.Component {
                     </h1>
                 </div>
                 <div className='row'>
-                    <section className='col-xl-9 m-0 p-0 mt-4'>
-                        <div className='shadow-lg p-3 border'>
+                    <section className='col-xl-9 m-0 p-0 mt-5'>
+                        <div className='shadow p-3 border'>
                             <WindChart data={forecast.data} />
                             <SwellChart data={forecast.data} />
                         </div>
                     </section>
-                    <aside className='sticky-xl-top top-0 col-xl-3 d-flex min-vh-100 vh-100 flex-column justify-content-between pb-5 pt-3 align-items-center'>
+                    <aside className='sticky-xl-top pt-5 top-0 col-xl-3 d-flex min-vh-100 vh-100 flex-column justify-content-between pb-5 pt-3 align-items-center'>
                         <DateSelector onDateChange={this.handleDateChange} />
                         <div className='text-center'>
                             Updated <b>{forecast.retrieved}</b>
@@ -84,7 +85,7 @@ export default class Forecast extends React.Component {
                         </div>
                     </aside>
                     <div className='col-xl-9 mb-5 p-0'>
-                        <div className="alert bg-white shadow-lg py-5 mw-100 alert-success alert-dismissible fade show text-center rounded-0" role="alert">
+                        <div className="alert bg-white shadow py-5 mw-100 alert-success alert-dismissible fade show text-center rounded-0" role="alert">
                             Had a good surf lately? <a href="#" className="alert-link">Keep a record</a> so we can notify you when it's on again!
                         </div>
                     </div>

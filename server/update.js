@@ -16,15 +16,15 @@ const updateForecasts = async function (event, context) {
             retrieved: new Date(),
             website: "metocean"
         });
-        // await forecast.save()
+        await forecast.save()
     }
     
     //Trigger page re-build
-    // await axios.post(`${process.env.REBUILD_HOOK}`);
+    await axios.post(`${process.env.REBUILD_HOOK}`);
 
     return {
         statusCode: 200,
     }
 };
-export const handler = updateForecasts;
-// export const handler = schedule("@hourly", updateForecasts);
+// export const handler = updateForecasts;
+export const handler = schedule("@hourly", updateForecasts);
