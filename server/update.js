@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import { schedule } from '@netlify/functions';
+import { schedule } from '@netlify/functions';
 import { Forecast } from 'models/Forecast';
 import { connectMongo } from 'utils/connectMongo';
 import { getMetOceanDataByLocation } from 'utils/metOcean';
