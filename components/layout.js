@@ -10,7 +10,7 @@ export default function Layout({ children, pageName }) {
                 <link rel="icon" href="/favicon.ico" />
                 <meta name="description" content="Surf Forecast"/>
             </Head>
-            <NewNavigation />
+            <Navigation />
             <main className="container-fluid d-flex flex-column">
                 {children}
             </main>

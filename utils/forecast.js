@@ -1,10 +1,10 @@
-import { connectMongo } from './connectMongo';
-import { Forecast } from "../models/Forecast";
+import { connectMongo } from './mongoDb';
+import { Forecast, forecastVirtuals } from "../models/Forecast";
 
 //Returns forecast for given location ID and date
 export async function getForecast(id, date = new Date()) {
     connectMongo();
-    const forecast = await Forecast.findOne({
+    let forecast = await Forecast.findOne({
         location: id,
         retrieved: {
             $lte: new Date(date)
@@ -12,10 +12,7 @@ export async function getForecast(id, date = new Date()) {
         }
     }).sort({ retrieved: 'desc' });
 
-    //'Pretend mongoose virtuals' - because they aint working.
-    const {swell, period, chop} = forecast.data;
-    forecast.data.face = calculateWaveFaces(swell, period, chop);
-    return forecast;
+    return forecastVirtuals.applyTo(forecast);
 }
 
 //Returns values for 'faces' - this should be a mongoose virtual

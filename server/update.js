@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { schedule } from '@netlify/functions';
 import { Forecast } from 'models/Forecast';
-import { connectMongo } from 'utils/connectMongo';
+import { connectMongo } from 'utils/mongoDb';
 import { getMetOceanDataByLocation } from 'utils/metOcean';
 import { getAllLocationsData } from 'utils/location';
 
@@ -16,7 +16,15 @@ const updateForecasts = async function (event, context) {
             retrieved: new Date(),
             website: "metocean"
         });
-        await forecast.save()
+        await forecast.save();
+
+        // const tideData = await getStormGlassTideDataByLocation(location);
+        // const tide = new Tide({
+        //     tideData,
+        //     location,
+        //     retrieved: new Date(),
+        //     website:"stormglass"
+        // })
     }
     
     //Trigger page re-build
