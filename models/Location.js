@@ -21,10 +21,8 @@ const locationSchema = new Schema({
     },
     timeZone: {
         type: String,
+        enum:["Pacific/Auckland"],
         required: true,
-    },
-    pointsInDirection: { //TODO: INTEGRATE THIS
-        type: Number,
     },
     geometry: { //geoJSON co-ords for mapbox.
         type: {

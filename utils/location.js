@@ -1,4 +1,4 @@
-import { connectMongo } from './connectMongo';
+import { connectMongo } from './mongoDb';
 import { Location } from "../models/Location";
 
 export async function getAllLocationsData(){
