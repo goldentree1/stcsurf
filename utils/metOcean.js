@@ -28,9 +28,11 @@ export async function getMetOceanDataByLocation(location) {
 
 function makeMetOceanQueryString(lat, lon, variables, timeZone) {
 
-    //Get start of timezone's current day (e.g., Tues 00:00 NZT)
-    const timeZoneMidnight = formatInTimeZone(new Date(), timeZone, 'yyyy-MM-dd 00:00:00');
-    const from = new Date(zonedTimeToUtc(timeZoneMidnight, timeZone))
+    //Start of timeZone's current day (e.g., 00:00 NZT)
+    const date = new Date();
+    const tzStringCurrentMidnight = formatInTimeZone(date, timeZone, 'yyyy-MM-dd 00:00:00')
+    const t = zonedTimeToUtc(tzStringCurrentMidnight, timeZone)
+    const d = new Date(t); // <-- WORKING!
    
     //Generate query string
     const query = `${process.env.METOCEAN_URL}${queryString.stringify({
@@ -39,7 +41,7 @@ function makeMetOceanQueryString(lat, lon, variables, timeZone) {
         variables: variables.toString(),
         interval: '3h',
         repeat: 56, //Note - this can go to 80!! i.e., 10 day forecast! should do it...
-        from: from.toJSON()
+        from: d.toJSON()
     })}`;
     return query;
 };

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import queryString from 'query-string';
 import fs from 'fs';
-import { formatInTimeZone, zonedTimeToUtc } from 'date-fns-tz';
 
 export const handler = async function (e, c) {
     const headers = {
@@ -74,20 +73,15 @@ export const handler = async function (e, c) {
     // }
 
 
-    //--------------TIDES--------------
-    // (working! and accurate! ... but...)
+//--------------TIDES--------------
+// (working! and accurate! ... but...)
 
     //This will face the exact same errors as 
     //metOcean start dates - see utils/metOcean.js 
-    const timeZone = "Pacific/Auckland"
-
-    const timeZoneMidnight = formatInTimeZone(new Date(), timeZone, 'yyyy-MM-dd 00:00:00');
-    const from = new Date(zonedTimeToUtc(timeZoneMidnight, timeZone))
-    console.log(from.getTime());
-    console.log(new Date().setHours(0, 0, 0, 0))
+    const start = new Date().setHours(0,0,0,0);
 
     //Apart from that, works well.
-    const tidesQuery = `https://api.stormglass.io/v2/tide/extremes/point?lat=${lat}&lng=${lng}&start=${from.getTime()}`;
+    const tidesQuery = `https://api.stormglass.io/v2/tide/extremes/point?lat=${lat}&lng=${lng}&start=${start}`;
     try{
 
         const data = await axios.get(tidesQuery, { headers })
