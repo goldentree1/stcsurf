@@ -8,16 +8,8 @@ export default class ForecastDateSelector extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            date: "",
-            toDate:"",
+            date: new Date()
         }
-    }
-
-    componentDidMount(){
-        this.setState({
-            date: new Date(),
-            toDate: new Date(),
-        })
     }
 
     handleSelect = async (date) => {
@@ -26,11 +18,11 @@ export default class ForecastDateSelector extends React.Component {
     }
 
     render() {
-        const { date, toDate } = this.state;
+        const { date } = this.state;
         return (
             <DayPicker
                 mode="single"
-                toDate={toDate}
+                toDate={new Date()}
                 selected={date}
                 onSelect={this.handleSelect}
             />
