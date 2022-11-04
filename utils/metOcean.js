@@ -1,6 +1,6 @@
 import axios from 'axios';
 import queryString from 'query-string';
-import { formatInTimeZone, getTimezoneOffset, utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz';
+import { formatInTimeZone, zonedTimeToUtc } from 'date-fns-tz';
 
 const headers = {
     headers: {
@@ -8,7 +8,7 @@ const headers = {
     }
 };
 
-const variablesMap = {
+const varsMap = {
     chop: "wave.height",
     direction: "wave.direction.peak",
     period: "wave.period.peak",
@@ -20,19 +20,18 @@ const variablesMap = {
 
 export async function getMetOceanDataByLocation(location) {
     const { metserviceCoordinates: { lat, lon }, timeZone } = location;
-    const query = makeMetOceanQueryString(lat, lon, Object.values(variablesMap), timeZone);
+    const query = makeMetOceanQueryString(lat, lon, Object.values(varsMap), timeZone);
     const metOceanData = await axios.get(query, headers);
-    const data = filterMetOceanData(metOceanData, variablesMap);
+    const data = filterMetOceanData(metOceanData, varsMap);
     return data;
 };
 
 function makeMetOceanQueryString(lat, lon, variables, timeZone) {
-
     //Get start of timezone's current day (e.g., Tues 00:00 NZT)
     const timeZoneMidnight = formatInTimeZone(new Date(), timeZone, 'yyyy-MM-dd 00:00:00');
     const from = new Date(zonedTimeToUtc(timeZoneMidnight, timeZone))
    
-    //Generate query string
+    //Generate query string for date 'from'.
     const query = `${process.env.METOCEAN_URL}${queryString.stringify({
         lat,
         lon,

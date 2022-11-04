@@ -1,15 +1,6 @@
 import { Schema, models, model } from 'mongoose';
 import { Virtuals } from 'utils/mongoDb';
 
-const options = {
-    toJSON:{
-        virtuals:true,
-    },
-    toObject:{
-        virtuals:true
-    }
-}
-
 const forecastSchema = new Schema({
     location: {
         type: Schema.Types.ObjectId,
@@ -25,37 +16,14 @@ const forecastSchema = new Schema({
         type: Date,
         required: true,
     },
-    data: {
-        chop:{
-            type: [Number],
-        },
-        direction:{
-            type:[Number],
-        },
-        period:{
-            type:[Number],
-        },
-        swell:{
-            type:[Number]
-        },
-        wind10m:{
-            type:[Number]
-        },
-        windGust10m:{
-            type:[Number]
-        },
-        windDir10m:{
-            type:[Number]
-        },
-        time:{},
-    },
+    data:{}
 });
 
 export const Forecast = models.Forecast || model("Forecast", forecastSchema);
 
 export const forecastVirtuals = new Virtuals([
     {
-        name: "data.faces",
+        name: "data.face",
         get: function(forecast){
             const { swell, period, chop } = forecast.data;
             const faces = swell.map((swell, i) => {

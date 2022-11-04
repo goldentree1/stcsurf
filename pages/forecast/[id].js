@@ -22,7 +22,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params: { id } }) {
     const location = await getLocation(id);
-    const forecast = await getForecast(id, new Date()); //netlify time?? make this local time?
+    const forecast = await getForecast(id, new Date());
     return {
         props: {
             forecast: JSON.stringify(forecast),
