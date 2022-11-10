@@ -3,6 +3,7 @@ import { Chart as ChartJS, BarElement, CategoryScale, Filler, LinearScale, LineE
 import { Line } from 'react-chartjs-2';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import constructDirectionArrowAnnotations from './chartjs/annotateDirArrows';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import WeekdayLabels from './chartjs/pluginWeekdayLabels';
 
 ChartJS.register(annotationPlugin, WeekdayLabels, CategoryScale, LinearScale, BarElement, Filler, Tooltip, PointElement, LineElement);
@@ -16,6 +17,7 @@ export default function TideChart({ data }) {
                 height={20}
                 data={constructData(data)}
                 options={constructOptions(data)}
+                plugins={[ChartDataLabels]}
             />
         </div>
     )
@@ -25,7 +27,7 @@ function constructData(data) {
     const times = data.data.map((tide) => (tide.time))
     const types = data.data.map((tide) => (tide.type))
     const heights = data.data.map((tide) => (tide.height))
-    const labels = times.map((utc) => (new Date(utc)));
+    const labels = times.map((utc) => (new Date(utc).getDate()));
 
     return {
         labels,

@@ -9,14 +9,29 @@ const updateForecasts = async function (event, context) {
     connectMongo();
     const locations = await getAllLocationsData();
     for(let location of locations){
-        const data = await getMetOceanDataByLocation(location);
-        const forecast = new Forecast({
-            data,
+        // const data = await getMetOceanDataByLocation(location);
+        // const forecast = new Forecast({
+        //     data,
+        //     location,
+        //     retrieved: new Date(),
+        //     website: "metocean"
+        // });
+        // await forecast.save();
+        await new Forecast({
+            data: await getMetOceanDataByLocation(location),
             location,
             retrieved: new Date(),
             website: "metocean"
-        });
-        await forecast.save();
+        }).save()
+
+        //Rewrite for simplicity as:
+        /* await new Forecast({
+            data: await getMetOceanDataByLocation(location),
+            location,
+            retrieved: new Date(),
+            website: "metocean"
+        }).save()
+        */
 
         // const tideData = await getStormGlassTideDataByLocation(location);
         // const tide = new Tide({

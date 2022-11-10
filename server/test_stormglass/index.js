@@ -93,7 +93,7 @@ export const handler = async function (e, c) {
         const data = await axios.get(tidesQuery, { headers })
         console.log({...data.data});
         const json = JSON.stringify({...data.data});
-        fs.writeFileSync("./tidesdata_test1.json", json);
+        fs.writeFileSync("./tidesdata_test2.json", json);
         return {
             statusCode: 200,
             data: JSON.stringify({...data.data}),

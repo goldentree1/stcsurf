@@ -1,7 +1,5 @@
 import React from 'react';
-import Head from 'next/head';
 import Link from 'next/link';
-import Image from 'next/image';
 import axios from 'axios';
 import Layout from '@components/layout';
 import DateSelector from '@components/DateSelector';
@@ -10,7 +8,7 @@ import WindChart from '@components/forecast/WindChart';
 import TideChart from '@components/forecast/TideChart';
 import { getAllLocationIDs, getLocation } from 'utils/location';
 import { getForecast } from 'utils/forecast';
-import { tideData} from 'utils/tide';
+import { getTide, tideData } from 'utils/tide';
 
 export async function getStaticPaths() {
     const paths = await getAllLocationIDs();
@@ -23,11 +21,12 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params: { id } }) {
     const location = await getLocation(id);
     const forecast = await getForecast(id, new Date());
+    const tide = await getTide(id, new Date())
     return {
         props: {
             forecast: JSON.stringify(forecast),
             location: JSON.stringify(location),
-            tide: JSON.stringify(tideData)
+            tide: JSON.stringify(tide)
         }
     }
 }
@@ -53,7 +52,6 @@ export default class Forecast extends React.Component {
             }
             this.setState({ forecast: data });
         }).catch(err => {
-            //TODO: Show an error dialog here
             throw new Error('status 500. Couldnt respond with request forecast: ' + err)
         })
     }
@@ -70,13 +68,6 @@ export default class Forecast extends React.Component {
                     <h1 className=' my-5 '>
                         Surf Forecast for {location.location.place}, {location.location.city}, {location.location.country}
                     </h1>
-                    <h3>{forecast.data.swell[0]}</h3>
-                    <p>
-                        
-                    {tide.data[0].height}m&nbsp;
-                       {tide.data[0].type} tide: 
-                       {tide.data[0].time} 
-                    </p>
                 </div>
                 <div className='row'>
                     <section className='col-xl-9 m-0 p-0 mt-5'>
@@ -96,14 +87,24 @@ export default class Forecast extends React.Component {
                         </div>
                     </aside>
                     <div className='col-xl-9 mb-5 p-0'>
-                        <div>
-                            <TideChart
-                                data = {tide}
-                            />
+                        <div className="alert bg-white shadow py-5 mw-100 alert-success alert-dismissible fade show text-center rounded-0" role="alert">
+                            <div>
+                                <TideChart
+                                    data={tide}
+                                />
+                            </div>
                         </div>
+                        <h3>{forecast.data.swell[0]}</h3>
+                    <p>
+
+                        {tide.data[0].height}m&nbsp;
+                        {tide.data[0].type} tide:
+                        {tide.data[0].time}
+                    </p>
                         <div className="alert bg-white shadow py-5 mw-100 alert-success alert-dismissible fade show text-center rounded-0" role="alert">
                             Had a good surf lately? <a href="#" className="alert-link">Keep a record</a> so we can notify you when it's on again!
                         </div>
+
                     </div>
                 </div>
             </Layout>
