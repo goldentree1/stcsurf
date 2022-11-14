@@ -62,6 +62,7 @@ export default class Forecast extends React.Component {
     render() {
         const { forecast, location, tide } = this.state;
         console.log(forecast);
+        //This one below is the OG.
         return (
             <Layout>
                 <div className='container my-5 d-flex flex-column align-items-center'>
@@ -95,12 +96,12 @@ export default class Forecast extends React.Component {
                             </div>
                         </div>
                         <h3>{forecast.data.swell[0]}</h3>
-                    <p>
+                        <p>
 
-                        {tide.data[0].height}m&nbsp;
-                        {tide.data[0].type} tide:
-                        {tide.data[0].time}
-                    </p>
+                            {tide.data[0].height}m&nbsp;
+                            {tide.data[0].type} tide:
+                            {tide.data[0].time}
+                        </p>
                         <div className="alert bg-white shadow py-5 mw-100 alert-success alert-dismissible fade show text-center rounded-0" role="alert">
                             Had a good surf lately? <a href="#" className="alert-link">Keep a record</a> so we can notify you when it's on again!
                         </div>
@@ -109,5 +110,31 @@ export default class Forecast extends React.Component {
                 </div>
             </Layout>
         )
+        return (
+            <Layout>
+                <div className='heading-container'>
+                    <h2 className='heading'>
+                        {location.location.place}
+                    </h2>
+                </div>
+                <div className='forecast-container'>
+                    <aside className='sidebar'>
+                        <DateSelector onDateChange={this.handleDateChange} />
+                    </aside>
+                    <div className='charts'>
+                        <section className='chart'>
+                            <WindChart data={forecast.data} />
+                        </section>
+                        <section className='chart'>
+                            <SwellChart data={forecast.data} />
+                        </section>
+                        <section className='chart'>
+                            <TideChart data={tide} />
+                        </section>
+                    </div>
+                </div>
+            </Layout>
+        )
+
     }
 }

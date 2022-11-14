@@ -27,7 +27,7 @@ function constructData(data) {
     const times = data.data.map((tide) => (tide.time))
     const types = data.data.map((tide) => (tide.type))
     const heights = data.data.map((tide) => (tide.height))
-    const labels = times.map((utc) => (new Date(utc).getDate()));
+    const labels = times.map((utc) => (`${new Date(utc).toLocaleTimeString()}`));
 
     return {
         labels,
@@ -51,5 +51,13 @@ function constructData(data) {
 }
 
 function constructOptions(data) {
-    return {};
+    return {
+        plugins: {
+            datalabels: {
+              formatter: function(value, context) {
+                return `${context.chart.data.labels[context.dataIndex]}: ${Math.round(value*100)/100}m`;
+              }
+            }
+          }
+    };
 }

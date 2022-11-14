@@ -9,14 +9,6 @@ const updateForecasts = async function (event, context) {
     connectMongo();
     const locations = await getAllLocationsData();
     for(let location of locations){
-        // const data = await getMetOceanDataByLocation(location);
-        // const forecast = new Forecast({
-        //     data,
-        //     location,
-        //     retrieved: new Date(),
-        //     website: "metocean"
-        // });
-        // await forecast.save();
         await new Forecast({
             data: await getMetOceanDataByLocation(location),
             location,
@@ -24,22 +16,12 @@ const updateForecasts = async function (event, context) {
             website: "metocean"
         }).save()
 
-        //Rewrite for simplicity as:
-        /* await new Forecast({
-            data: await getMetOceanDataByLocation(location),
-            location,
-            retrieved: new Date(),
-            website: "metocean"
-        }).save()
-        */
-
-        // const tideData = await getStormGlassTideDataByLocation(location);
-        // const tide = new Tide({
-        //     tideData,
+        // await new Tide({
+        //     data: await getStormGlassTideDataByLocation(location),
         //     location,
         //     retrieved: new Date(),
         //     website:"stormglass"
-        // })
+        // }).save()
     }
     
     //Trigger page re-build
@@ -50,4 +32,4 @@ const updateForecasts = async function (event, context) {
     }
 };
 // export const handler = updateForecasts;
-export const handler = schedule("@hourly", updateForecasts);
+export const handler = schedule("1 */12 * * *", updateForecasts);
