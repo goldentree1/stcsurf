@@ -10,8 +10,8 @@ const updateForecasts = async function (event, context) {
     const locations = await getAllLocationsData();
     for(let location of locations){
         await new Forecast({
-            data: await getMetOceanDataByLocation(location),
             location,
+            data: await getMetOceanDataByLocation(location),
             retrieved: new Date(),
             website: "metocean"
         }).save()

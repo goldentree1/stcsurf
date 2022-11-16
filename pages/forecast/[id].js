@@ -66,16 +66,16 @@ export default class Forecast extends React.Component {
         return (
             <Layout>
                 <div className='container my-5 d-flex flex-column align-items-center'>
-                    <h1 className=' my-5 '>
+                    <h1 className=' my-2'>
                         Surf Forecast for {location.location.place}, {location.location.city}, {location.location.country}
                     </h1>
                 </div>
                 <div className='row'>
-                    <section className='col-xl-9 m-0 p-0 mt-5'>
-                        <div className='shadow p-3 border'>
-                            <WindChart data={forecast.data} />
-                            <SwellChart data={forecast.data} />
-                        </div>
+                    <section className='col-xl-9 m-0 p-0 mt-5' style={{ overflowX: 'scroll' }}>
+                            <div className='shadow p-3 border' style={{ minWidth: '800px' }}>
+                                <WindChart data={forecast.data} />
+                                <SwellChart data={forecast.data} />
+                            </div>
                     </section>
                     <aside className='sticky-xl-top pt-5 top-0 col-xl-3 d-flex min-vh-100 vh-100 flex-column justify-content-between pb-5 pt-3 align-items-center'>
                         <DateSelector onDateChange={this.handleDateChange} />

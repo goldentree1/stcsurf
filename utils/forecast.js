@@ -4,6 +4,7 @@ import { Forecast, forecastVirtuals } from "../models/Forecast";
 //Returns forecast for given location ID and date
 export async function getForecast(id, date = new Date()) {
     connectMongo();
+    //can this be const?
     let forecast = await Forecast.findOne({
         location: id,
         retrieved: {
