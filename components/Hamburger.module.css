@@ -4,7 +4,7 @@
 }
 
 .hamburger[aria-expanded="true"] svg {
-    transform: translate(5px, 6px) rotate(-45deg);
+    transform: rotate(-45deg);
 }
 
 .hamburger path {
