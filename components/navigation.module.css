@@ -1,24 +1,23 @@
 .header,
 .nav {
     display: flex;
-    background: rgb(254, 254, 254);
-    color: rgb(0, 0, 0);
-    overflow: hidden;
+    background: rgb(255, 255, 255);
 }
 
 .header {
     z-index: 100;
+    overflow: hidden;
     position: sticky;
     inset: 0 0 auto 0;
     align-items: center;
     justify-content: space-between;
     border-bottom: solid steelblue 2px;
+    transition: transform 0.35s ease;
 }
 
 .logo {
     font-weight: 600;
     font-size: 1.25rem;
-    color: hsl(207, 44%, 49%);
     margin: 1rem;
     margin-left: 3.25rem;
 }
@@ -30,15 +29,19 @@
 
 .nav {
     gap: 2rem;
+
 }
 
 .nav a {
     font-size: 1.25rem;
-    color: steelblue;
     font-weight: 600;
 }
 
 @media (max-width: 50rem) {
+    .header[data-visible="false"]{
+        transform: translateY(-100%);
+    }
+
     .navToggle {
         display: block;
         margin-left: auto;
@@ -47,17 +50,16 @@
 
     .nav {
         position: fixed;
-        z-index: 100;
         inset: 0 0 0 auto;
         width: min(70%, 22rem);
         flex-direction: column;
         padding: min(30vh, 10rem) 2rem;
         transform: translateX(100%);
         transition: transform .65s ease;
+        border-left: 2px solid steelblue;
     }
 
     .nav[data-visible="true"] {
-        border-left: 2px solid steelblue;
         transform: translateX(0%);
     }
 }

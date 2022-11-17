@@ -8,7 +8,23 @@ export default class Navigation extends React.Component {
     super(props)
     this.state = {
       navExpanded: false,
+      navVisible: true,
+      prevScroll: 0,
     }
+  }
+
+  componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+  }
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
+
+  handleScroll = () => {
+    this.setState({
+      navVisible: this.state.prevScroll > window.scrollY,
+      prevScroll: window.scrollY
+    })
   }
 
   handleHamburgerClick = () => {
@@ -18,8 +34,10 @@ export default class Navigation extends React.Component {
   }
 
   render() {
+    const hideStyle = this.state.navVisible?'red':'green';
     return (
-      <header className={styles.header}>
+      <header className={styles.header}
+      data-visible={this.state.navVisible}>
         <Link href="/">
           <a className={styles.logo}>
             EB-SWELL
