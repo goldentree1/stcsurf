@@ -1,20 +1,14 @@
 import React from 'react';
-import { Chart as ChartJS, BarElement, CategoryScale, Filler, LinearScale, LineElement, Tooltip, PointElement } from 'chart.js';
+import './ChartJS';
 import { Line } from 'react-chartjs-2';
-import annotationPlugin from 'chartjs-plugin-annotation';
-import constructDirectionArrowAnnotations from './chartjs/annotateDirArrows';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import WeekdayLabels from './chartjs/pluginWeekdayLabels';
-
-ChartJS.register(annotationPlugin, WeekdayLabels, CategoryScale, LinearScale, BarElement, Filler, Tooltip, PointElement, LineElement);
-
 
 export default function TideChart({ data }) {
     return (
         <div>
             <Line
                 width={100}
-                height={20}
+                height={35}
                 data={constructData(data)}
                 options={constructOptions(data)}
                 plugins={[ChartDataLabels]}
@@ -30,34 +24,61 @@ function constructData(data) {
     const labels = times.map((utc) => (`${new Date(utc).toLocaleTimeString()}`));
 
     return {
-        labels,
+        labels: labels,
         datasets: [
             {
                 label: 'TYPE',
                 data: types,
                 fill: true,
                 borderColor: 'rgba(155, 155, 155, 0.6)',
-                backgroundColor:'rgba(0,0,0,0)'
+                backgroundColor: 'rgba(0,0,0,0)'
             },
             {
                 label: 'TYPE',
                 data: heights,
                 fill: true,
-                borderColor: 'rgba(155, 155, 155, 0.6)',
-                backgroundColor:'rgba(0,0,0,0)'
+                backgroundColor: 'rgba(164, 172, 245, 0.2)',
+                borderColor: 'rgba(164, 172, 245, 0.2)',
             },
         ]
     }
 }
 
 function constructOptions(data) {
+    const times = data.data.map((tide) => (tide.time))
     return {
+        layout: {
+            padding: {
+                top: 100,
+                right: 52,
+            }
+        },
         plugins: {
             datalabels: {
-              formatter: function(value, context) {
-                return `${context.chart.data.labels[context.dataIndex]}: ${Math.round(value*100)/100}m`;
-              }
-            }
-          }
+                formatter: function (value, context) {
+                    return `${context.chart.data.labels[context.dataIndex]}: ${Math.round(value * 100) / 100}m`;
+                }
+            },
+            weekdaylabels: {
+                dates: times,
+                position: 'top',
+                offset:20,
+            },
+        },
+        scales: {
+            x: {
+                position: 'top',
+                display:false,
+                grid: { display: false, }
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: "Mean Sea Level (m)"
+                },
+                beginAtZero: true,
+                grid: { display: false, },
+            },
+        }
     };
 }

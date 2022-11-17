@@ -1,0 +1,81 @@
+/*layouts*/
+.container {
+    padding-inline: 3rem;
+}
+
+.sidebar-container {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-x: scroll;
+}
+
+.sidebar-container .sidebar {
+    display: flex;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    left:0;
+    flex: 1;
+
+    height: fit-content;
+    /*^^Change height:fit-content to below styles if want 100vh sidebar*/
+    /* min-height: fit-content;
+    max-height: 100vh;
+    align-items:center; */
+}
+
+.sidebar-container .main-content {
+    min-width: 750px;
+    flex: 1 1 72%;
+}
+
+@media screen and (min-width: 750px){
+    .sidebar-container{
+        overflow-x:visible;
+    }
+}
+
+/*utils*/
+.mx-auto{
+    margin-left: auto;
+    margin-right: auto;
+}
+.mt-neg-3{
+    margin-top: -3rem;
+}
+.mt-3{
+    margin-top: 3rem;
+}
+.pt-3{
+    padding-top: 3rem;
+}
+.py-3{
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+.mt-neg-4{
+    margin-top: -4rem;
+}
+.mt-4{
+    margin-top: 4rem;
+}
+.pt-4{
+    padding-top: 4rem;
+}
+.py-4{
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+.mt-neg-5{
+    margin-top: -5rem;
+}
+.mt-5{
+    margin-top: 5rem;
+}
+.pt-5{
+    padding-top: 5rem;
+}
+.py-5{
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}

@@ -1,15 +1,15 @@
- const WeekdayLabels = {
+const WeekdayLabels = {
     id: 'weekdaylabels',
     afterDatasetsDraw: (chart, args, options) => {
-        if(!options.dates[0]) return;
+        if (!options.dates[0]) return;
         const { ctx } = chart;
         ctx.save();
         ctx.font = options.font;
-        const position = options.position === 'bottom' ? chart.height : chart.chartArea.top - 50;
-        const graphWidth = chart.width - chart.chartArea.left - (chart.width - chart.chartArea.right);
+        const position = options.position === 'bottom' ? chart.height + options.offset : chart.chartArea.top - options.offset;
+        const graphWidth = chart.width - chart.chartArea.left - (chart.width - chart.chartArea.right) / 2;
         const labels = computeLabelsAndPositions(options.dates, graphWidth);
         for (let label of labels) {
-            ctx.fillText(label.date.toDateString().slice(0, 3), chart.chartArea.left + label.xShift, position)
+            ctx.fillText(label.date.toDateString().slice(0, 3), (chart.chartArea.left) / 2 + label.xShift, position)
         }
     },
     defaults: {
@@ -17,7 +17,8 @@
         position: "bottom",
         font: 'bold 12px sans-serif',
         fillStyle: 'rgb(0,0,0)',
-        textAlign: 'center'
+        textAlign: 'center',
+        offset:50,
     }
 }
 export default WeekdayLabels;
@@ -48,7 +49,7 @@ function computeLabelsAndPositions(dates, totalWidth) {
     //remove date objects that are past boundary of chart (i.e., greater than totalWidth).
     const dateObjsInsideChartBoundary = dateObjs.filter(dateObj => (
         dateObj.xShift <= totalWidth
-    ))
+    ));
     return dateObjsInsideChartBoundary;
 };
 

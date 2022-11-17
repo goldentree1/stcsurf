@@ -1,0 +1,32 @@
+.hamburger svg {
+    transition: 0.8s;
+    stroke-width: 6px;
+}
+
+.hamburger[aria-expanded="true"] svg {
+    rotate: -.125turn;
+    transform: translate(5px, 6px);
+}
+
+.hamburger path {
+    transition: 0.5s ease 300ms;
+    stroke-linecap: "round";
+    stroke-linejoin: "round";
+    stroke-dasharray: 55 54 55 1000;
+    stroke-dashoffset: -12;
+}
+
+.hamburger[aria-expanded="true"] path {
+    stroke-dasharray: 40 328 40;
+}
+
+.screenReaderOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}

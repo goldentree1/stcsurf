@@ -1,5 +1,5 @@
 export default function constructDirectionArrowAnnotations(arr, direction, color) {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined') { //Next.js can't load generate this server-side.
         const annotations = {}
         const img = new Image();
         const arrowSvg = `<?xml version="1.0" encoding="iso-8859-1"?><svg 

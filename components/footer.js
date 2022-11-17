@@ -2,15 +2,14 @@
 export default function Footer() {
   return (
     <>
-      <footer className="bg-dark text-center text-light py-5">
-
+      <footer style={{background:'black', color:'white'}}>
         <div>
           Swell-forecast-2
         </div>
         <nav>
           Link 1 Link 2 Link 3
         </nav>
-          <div className="py-5 my-5"></div>
+        <div style={{height:'100vh'}}></div>
       </footer>
     </>
   )

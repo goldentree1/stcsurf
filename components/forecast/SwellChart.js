@@ -1,19 +1,7 @@
 import React from 'react';
-import { Chart as ChartJS, BarElement, CategoryScale, Filler, LinearScale, LineElement, Tooltip, PointElement } from 'chart.js';
+import './ChartJS';
 import { Line } from 'react-chartjs-2';
-import annotationPlugin from 'chartjs-plugin-annotation';
-import constructDirectionArrowAnnotations from './chartjs/annotateDirArrows';
-import WeekdayLabels from './chartjs/pluginWeekdayLabels';
-
-
-ChartJS.register(annotationPlugin, BarElement, CategoryScale, Filler, LinearScale, LineElement, Tooltip, PointElement, WeekdayLabels);
-ChartJS.defaults.borderColor = "rgba(0,0,0,0)";
-ChartJS.defaults.interaction.intersect = false;
-ChartJS.defaults.interaction.mode = "index";
-ChartJS.defaults.elements.point.radius = 0;
-ChartJS.defaults.elements.point.hoverRadius = 10;
-ChartJS.defaults.elements.point.borderWidth = 3;
-ChartJS.defaults.elements.line.tension = 0.5;
+import constructDirectionArrowAnnotations from './ChartJS/annotateDirArrows';
 
 export default function SwellChart({ data }) {
     return (
@@ -33,11 +21,6 @@ function constructOptions(data) {
         ...constructDirectionArrowAnnotations(swell, direction, "rgba(10, 118, 191, 1)")
     }
     return {
-        layout: {
-            padding: {
-                bottom: 30,
-            }
-        },
         plugins: {
             annotation: {
                 annotations

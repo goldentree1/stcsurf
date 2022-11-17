@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import axios from 'axios';
 import Layout from '@components/layout';
 import DateSelector from '@components/DateSelector';
@@ -61,7 +62,30 @@ export default class Forecast extends React.Component {
     //Keeping it as just 'forecast.retrieved' works fine
     render() {
         const { forecast, location, tide } = this.state;
-        console.log(forecast);
+        return (
+            <Layout>
+                <h2 className='container py-3'>
+                    {location.location.place}
+                </h2>
+                <div className='sidebar-container mt-neg-3'>
+                    <div className='main-content pt-3'>
+                        <section className='chart'>
+                            <WindChart data={forecast.data} />
+                            <SwellChart data={forecast.data} />
+                        </section>
+                        <section className='chart'>
+                            <TideChart data={tide} />
+                        </section>
+                        <section>
+                            <img src="https://www.wickednetworks.co.nz/webcams/current-stclair.jpg"/>
+                        </section>
+                    </div>
+                    <aside className='sidebar py-3'>
+                        <DateSelector onDateChange={this.handleDateChange} />
+                    </aside>
+                </div>
+            </Layout>
+        )
         //This one below is the OG.
         return (
             <Layout>
@@ -72,10 +96,10 @@ export default class Forecast extends React.Component {
                 </div>
                 <div className='row'>
                     <section className='col-xl-9 m-0 p-0 mt-5' style={{ overflowX: 'scroll' }}>
-                            <div className='shadow p-3 border' style={{ minWidth: '800px' }}>
-                                <WindChart data={forecast.data} />
-                                <SwellChart data={forecast.data} />
-                            </div>
+                        <div className='shadow p-3 border' style={{ minWidth: '800px' }}>
+                            <WindChart data={forecast.data} />
+                            <SwellChart data={forecast.data} />
+                        </div>
                     </section>
                     <aside className='sticky-xl-top pt-5 top-0 col-xl-3 d-flex min-vh-100 vh-100 flex-column justify-content-between pb-5 pt-3 align-items-center'>
                         <DateSelector onDateChange={this.handleDateChange} />
@@ -110,31 +134,7 @@ export default class Forecast extends React.Component {
                 </div>
             </Layout>
         )
-        return (
-            <Layout>
-                <div className='heading-container'>
-                    <h2 className='heading'>
-                        {location.location.place}
-                    </h2>
-                </div>
-                <div className='forecast-container'>
-                    <aside className='sidebar'>
-                        <DateSelector onDateChange={this.handleDateChange} />
-                    </aside>
-                    <div className='charts'>
-                        <section className='chart'>
-                            <WindChart data={forecast.data} />
-                        </section>
-                        <section className='chart'>
-                            <SwellChart data={forecast.data} />
-                        </section>
-                        <section className='chart'>
-                            <TideChart data={tide} />
-                        </section>
-                    </div>
-                </div>
-            </Layout>
-        )
+
 
     }
 }

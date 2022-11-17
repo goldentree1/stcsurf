@@ -1,20 +1,16 @@
 import Head from 'next/head';
-import 'bootstrap/dist/css/bootstrap.css';
+import '@styles/reset.css'
 import '@styles/globals.css'
-import { useEffect } from "react";
+import '@styles/utils.css'
 
-
-
-//Is this 'Head' part really needed?
-//bootstrap setup tutorial said so... but meh? test it?
 function Application({ Component, pageProps }) {
-  useEffect(() => {
-    
-  }, []);
   <Head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   </Head>
   return <Component {...pageProps} />
 }
 
-export default Application
+export default Application;

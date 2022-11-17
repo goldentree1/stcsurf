@@ -1,25 +1,52 @@
-import NavToggler from './NavToggler'
-export default function Navigation() {
-  //change
-  return (
-    <header className="pb-5">
-      <div className="text-center my-5 rounded-0 alert-dark d-flex justify-content-center align-items-center" role="alert">
-        <a href="#" className="">Matanaka + 3 other spots </a>&nbsp;may be good today!
-        <button type="button" className="btn-close ms-3" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-      <div className="container d-flex justify-content-between align-items-center">
-        <div className="h4">
-          EB-Swell-Forecast-2
-        </div>
-        <nav className="d-flex align-items-center" style={{gap:'1.75rem'}}>
-          <a>Forecasts</a>
-          <a>My Surf Spots</a>
-          <a>Login</a>
-          <a>Contact</a>
-          <NavToggler />
-        </nav>
-      </div>
+import React from 'react'
+import Link from 'next/link';
+import styles from './navigation.module.css';
+import Hamburger from './Hamburger'
 
-    </header>
-  )
+export default class Navigation extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      navExpanded: false,
+    }
+  }
+
+  handleHamburgerClick = () => {
+    this.setState({
+      navExpanded: !this.state.navExpanded
+    })
+  }
+
+  render() {
+    return (
+      <header className={styles.header}>
+        <Link href="/">
+          <a className={styles.logo}>
+            EB-SWELL
+          </a>
+        </Link>
+        <Hamburger onClick={this.handleHamburgerClick}
+          className={styles.navToggle}
+          ariaControls="primary-nav" />
+        <nav>
+          <ul id="primary-nav"
+            className={styles.nav}
+            data-visible={this.state.navExpanded}>
+            <li>
+              <a>Forecasts</a>
+            </li>
+            <li>
+              <a>My Alerts</a>
+            </li>
+            <li>
+              <a>Contact</a>
+            </li>
+            <li>
+              <a>Login</a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+    )
+  }
 }

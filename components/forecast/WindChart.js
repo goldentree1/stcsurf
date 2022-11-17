@@ -1,11 +1,7 @@
 import React from 'react';
-import { Chart as ChartJS, CategoryScale, Filler, LinearScale, BarElement, Tooltip, PointElement, LineElement } from 'chart.js';
+import './ChartJS';
 import { Line } from 'react-chartjs-2';
-import annotationPlugin from 'chartjs-plugin-annotation';
-import constructDirectionArrowAnnotations from './chartjs/annotateDirArrows';
-import WeekdayLabels from './chartjs/pluginWeekdayLabels';
-
-ChartJS.register(annotationPlugin, WeekdayLabels, CategoryScale, LinearScale, BarElement, Filler, Tooltip, PointElement, LineElement);
+import constructDirectionArrowAnnotations from './ChartJS/annotateDirArrows';
 
 export default function WindChart({ data }) {
     return (
@@ -32,7 +28,6 @@ function constructOptions(data) {
             weekdaylabels: {
                 dates: time.data,
                 position: 'top',
-                fontStyle: "bold 18px sans-serif"
             },
             annotation: {
                 annotations: {
