@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import axios from 'axios';
 import Layout from '@components/layout';
 import DateSelector from '@components/DateSelector';
@@ -43,7 +42,7 @@ export default class Forecast extends React.Component {
         };
     }
 
-    handleDateChange = (date) => {
+    handleDateChange = async(date) => {
         axios.post("/api/forecast", {
             id: this.state.location._id,
             date: new Date(date).setHours(23, 59, 59, 999)

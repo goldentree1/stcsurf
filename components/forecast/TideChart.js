@@ -1,5 +1,5 @@
 import React from 'react';
-import './ChartJS';
+import './ChartJS/index.js';
 import { Line } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
