@@ -25,17 +25,33 @@
 }
 
 .sidebar-container .main-content {
-    min-width: 750px;
+    min-width: 800px;
     flex: 1 1 72%;
 }
 
-@media screen and (min-width: 750px){
+@media screen and (min-width: 800px){
     .sidebar-container{
         overflow-x:visible;
     }
 }
 
-/*utils*/
+/*fonts/text*/
+.h1{
+
+}
+.h2{
+
+}
+.h3{
+
+}
+.h4{
+
+}
+.h5{
+
+}
+/*margin/padding*/
 .mx-auto{
     margin-left: auto;
     margin-right: auto;

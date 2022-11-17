@@ -1,4 +1,3 @@
-import React from 'react';
 import { Chart as ChartJS, BarElement, CategoryScale, Filler, LinearScale, LineElement, Tooltip, PointElement } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import WeekdayLabels from './pluginWeekdayLabels';
@@ -12,5 +11,6 @@ ChartJS.defaults.elements.point.borderWidth = 3;
 ChartJS.defaults.elements.line.tension = 0.5;
 ChartJS.defaults.interaction.intersect = false;
 ChartJS.defaults.interaction.mode = "index";
+ChartJS.defaults.color = "steelblue";
 
 export default ChartJS;

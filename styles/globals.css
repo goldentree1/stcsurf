@@ -1,8 +1,14 @@
+:root{
+  --accent-color: steelblue;
+  --main-color: white;
+}
+
 /*General*/
 html,
 body {
   font-size: 16px;
   font-family: 'Quicksand', sans-serif;
+  color: steelblue;
 }
 h1{
 

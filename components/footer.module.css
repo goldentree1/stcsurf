@@ -1,0 +1,8 @@
+.footer{
+    background: steelblue;
+    color: white;
+    text-align: center;
+}
+.footer > *{
+    padding-top: 2rem;
+}

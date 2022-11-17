@@ -1,8 +1,12 @@
+import styles from './footer.module.css';
 
 export default function Footer() {
   return (
     <>
-      <footer style={{background:'black', color:'white'}}>
+      <footer className={styles.footer}>
+        <h2>
+          EB-SWELL-FORECAST-2
+        </h2>
         <div>
           Swell-forecast-2
         </div>

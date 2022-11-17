@@ -66,6 +66,9 @@ export default class Forecast extends React.Component {
                 <h2 className='container py-3'>
                     {location.location.place}
                 </h2>
+                <section style={{width:100+'%', paddingInline:3+'rem'}}>
+                    <img src="https://static.topomap.co.nz/tiles-topo50/14-15951-5834.png"/>
+                </section>
                 <div className='sidebar-container mt-neg-3'>
                     <div className='main-content pt-3'>
                         <section className='chart'>

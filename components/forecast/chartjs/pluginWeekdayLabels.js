@@ -5,6 +5,7 @@ const WeekdayLabels = {
         const { ctx } = chart;
         ctx.save();
         ctx.font = options.font;
+        ctx.fillStyle = options.fillStyle;
         const position = options.position === 'bottom' ? chart.height + options.offset : chart.chartArea.top - options.offset;
         const graphWidth = chart.width - chart.chartArea.left - (chart.width - chart.chartArea.right) / 2;
         const labels = computeLabelsAndPositions(options.dates, graphWidth);
@@ -16,9 +17,9 @@ const WeekdayLabels = {
         dates: [],
         position: "bottom",
         font: 'bold 12px sans-serif',
-        fillStyle: 'rgb(0,0,0)',
+        fillStyle: 'steelblue',
         textAlign: 'center',
-        offset:50,
+        offset: 50,
     }
 }
 export default WeekdayLabels;

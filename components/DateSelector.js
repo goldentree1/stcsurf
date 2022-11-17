@@ -1,6 +1,7 @@
 import React from "react";
 import {DayPicker} from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
+import modifierStyles from './DateSelector.module.css';
 
 export default class ForecastDateSelector extends React.Component {
     constructor(props) {
@@ -23,6 +24,9 @@ export default class ForecastDateSelector extends React.Component {
                 toDate={new Date()}
                 selected={date}
                 onSelect={this.handleSelect}
+                modifiersStyles={{
+                    selected:{backgroundColor:'steelblue'}
+                }}
             />
         )
     }
