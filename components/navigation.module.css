@@ -1,14 +1,13 @@
 .header,
 .nav {
     display: flex;
-    z-index: 100;
-
+    background: rgb(254, 254, 254);
+    color: rgb(0, 0, 0);
+    overflow: hidden;
 }
 
 .header {
-    background: rgba(254, 254, 254, 0.8);
-    backdrop-filter: blur(2rem) saturate(200%);
-    overflow: hidden;
+    z-index: 100;
     position: sticky;
     inset: 0 0 auto 0;
     align-items: center;
@@ -19,6 +18,7 @@
 .logo {
     font-weight: 600;
     font-size: 1.25rem;
+    color: hsl(207, 44%, 49%);
     margin: 1rem;
     margin-left: 3.25rem;
 }
@@ -30,11 +30,11 @@
 
 .nav {
     gap: 2rem;
-    /* background: transparent; */
 }
 
 .nav a {
     font-size: 1.25rem;
+    color: steelblue;
     font-weight: 600;
 }
 
@@ -47,14 +47,13 @@
 
     .nav {
         position: fixed;
-        z-index: 101;
+        z-index: 100;
         inset: 0 0 0 auto;
         width: min(70%, 22rem);
         flex-direction: column;
         padding: min(30vh, 10rem) 2rem;
         transform: translateX(100%);
         transition: transform .65s ease;
-        background: white;
     }
 
     .nav[data-visible="true"] {

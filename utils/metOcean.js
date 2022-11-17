@@ -20,7 +20,6 @@ const varsMap = {
 
 export async function getMetOceanDataByLocation(location) {
     const { metserviceCoordinates: { lat, lon }, timeZone } = location;
-
     const query = makeMetOceanQueryString(lat, lon, Object.values(varsMap), timeZone);
     const metOceanData = await axios.get(query, headers);
     const data = filterMetOceanData(metOceanData, varsMap);
