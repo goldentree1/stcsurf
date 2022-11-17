@@ -1,7 +1,7 @@
 import React from 'react';
-import './ChartJS/index.js';
+import './chartjs/index.js';
 import { Line } from 'react-chartjs-2';
-import constructDirectionArrowAnnotations from './ChartJS/annotateDirArrows.js';
+import constructDirectionArrowAnnotations from './chartjs/annotateDirArrows.js';
 
 export default function SwellChart({ data }) {
     return (

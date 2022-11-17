@@ -1,7 +1,7 @@
 import React from 'react';
-import './ChartJS/index.js';
+import './chartjs/index.js';
 import { Line } from 'react-chartjs-2';
-import constructDirectionArrowAnnotations from './ChartJS/annotateDirArrows';
+import constructDirectionArrowAnnotations from './chartjs/annotateDirArrows';
 
 export default function WindChart({ data }) {
     return (
