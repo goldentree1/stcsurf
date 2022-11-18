@@ -1,7 +1,14 @@
 import React from 'react'
 import Link from 'next/link';
 import styles from './navigation.module.css';
-import Hamburger from './Hamburger'
+import Hamburger from './Hamburger';
+
+const pages = [
+  { title: "Forecasts", href: "/forecasts", subPages:[] },
+  { title: "My Waves", href: "/" },
+  { title: "Contact", href: "/" },
+  { title: "Login", href: "/" },
+]
 
 export default class Navigation extends React.Component {
   constructor(props) {
@@ -52,18 +59,16 @@ export default class Navigation extends React.Component {
           <ul id="primary-nav"
             className={styles.nav}
             data-visible={this.state.mobileNavExpanded}>
-            <li>
-              <a>Forecasts</a>
-            </li>
-            <li>
-              <a>My Waves</a>
-            </li>
-            <li>
-              <a>Contact</a>
-            </li>
-            <li>
-              <a>Login</a>
-            </li>
+            {pages.map((page) => (
+              <li>
+                <Link href={page.href}>
+                  <a className={this.props.selected.toLowerCase() === page.title.toLowerCase() ?
+                    styles.active : ''}>
+                    {page.title}
+                  </a>
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
       </header>

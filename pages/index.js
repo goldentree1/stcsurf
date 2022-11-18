@@ -15,7 +15,7 @@ export async function getStaticProps() {
 export default function Home({locationData}) {
   const locations = JSON.parse(locationData);
   return (
-    <Layout>
+    <Layout page="Home">
       <Head>
         <title>aerfejs Starter!</title>
         <link rel="icon" href="/favicon.ico" />
@@ -25,7 +25,7 @@ export default function Home({locationData}) {
         <ul>
           {locations.map((location, i)=>(
             <li key={`forecast-link-${i}`}>
-              <Link href={`/forecast/${location._id}`}>
+              <Link href={`/forecasts/${location._id}`}>
                 <a>{location.location.place}</a>
               </Link>
             </li>

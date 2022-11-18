@@ -33,9 +33,32 @@
     gap: 2rem;
 }
 
+.nav li{
+    position: relative;
+    max-width: max-content;
+}
+
 .nav a {
     font-size: 1.25rem;
     font-weight: 600;
+}
+
+.nav a::after{
+    content:"";
+    position: absolute;
+    height: 40%;
+    background: var(--accent-color);
+    opacity: 0.2;
+    width: 0%;
+    display: block;
+    transform: translateY(3px);
+    bottom:0;
+    border-radius: 1rem;
+}
+
+.nav .active::after{
+    width: 100%;
+    animation: expand-link-underline 0.4s ease;
 }
 
 @media (max-width: 50rem) {
@@ -67,5 +90,14 @@
 @media screen and (min-width: 50rem) {
     .nav {
         padding: 1rem clamp(1rem, 9vw, 10rem);
+    }
+}
+
+@keyframes expand-link-underline {
+    from{
+        width: 0%;
+    }
+    to{
+        width: 100%;
     }
 }

@@ -19,11 +19,11 @@
 }
 
 .chartsContainer .charts {
-    min-width: 820px;
+    min-width: 50rem;
     flex: 1 1 72%;
 }
 
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 50rem) {
     .chartsContainer {
         overflow-x: visible;
     }

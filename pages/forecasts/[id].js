@@ -62,7 +62,7 @@ export default class Forecast extends React.Component {
     render() {
         const { forecast, location, tide } = this.state;
         return (
-            <Layout>
+            <Layout page="forecasts">
                 <h2 className='container'>
                     {location.location.place}
                 </h2>
