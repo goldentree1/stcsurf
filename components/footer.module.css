@@ -1,6 +1,6 @@
 .footer{
-    background: steelblue;
-    color: white;
+    background: var(--accent-color);
+    color: var(--main-color);
     text-align: center;
 }
 .footer > *{

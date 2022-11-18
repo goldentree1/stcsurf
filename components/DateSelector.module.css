@@ -1,0 +1,4 @@
+.selected{
+    color: var(--main-color);
+    background-color: var(--accent-color);
+}

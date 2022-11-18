@@ -1,7 +1,6 @@
 import Head from 'next/head';
-import '@styles/reset.css'
-import '@styles/globals.css'
-import '@styles/utils.css'
+import '@styles/reset.css';
+import '@styles/globals.css';
 
 function Application({ Component, pageProps }) {
   <Head>
@@ -11,6 +10,6 @@ function Application({ Component, pageProps }) {
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   </Head>
   return <Component {...pageProps} />
-}
+};
 
 export default Application;

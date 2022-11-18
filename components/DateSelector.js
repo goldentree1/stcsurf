@@ -24,9 +24,7 @@ export default class ForecastDateSelector extends React.Component {
                 toDate={new Date()}
                 selected={date}
                 onSelect={this.handleSelect}
-                modifiersStyles={{
-                    selected:{backgroundColor:'steelblue'}
-                }}
+                modifiersClassNames={modifierStyles}
             />
         )
     }

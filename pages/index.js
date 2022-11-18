@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '@components/layout';
 import { getAllLocationsData } from './../utils/location';
@@ -9,11 +9,11 @@ export async function getStaticProps() {
     props: {
       locationData: JSON.stringify(locations),
     }
-  }
-}
+  };
+};
 
 export default function Home({locationData}) {
-  const locations = JSON.parse(locationData)
+  const locations = JSON.parse(locationData);
   return (
     <Layout>
       <Head>

@@ -7,8 +7,8 @@ export default class Navigation extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      navExpanded: false,
-      navVisible: true,
+      mobileNavExpanded: false,
+      mobileNavVisible: true,
       prevScroll: 0,
     }
   }
@@ -16,45 +16,47 @@ export default class Navigation extends React.Component {
   componentDidMount() {
     window.addEventListener("scroll", this.handleScroll);
   }
+
   componentWillUnmount() {
     window.removeEventListener("scroll", this.handleScroll);
   }
 
   handleScroll = () => {
+    const { mobileNavExpanded, prevScroll } = this.state;
     this.setState({
-      navVisible: this.state.prevScroll > window.scrollY,
+      mobileNavVisible: mobileNavExpanded || window.scrollY < 30 ?
+        true : prevScroll > window.scrollY,
       prevScroll: window.scrollY
     })
   }
 
   handleHamburgerClick = () => {
     this.setState({
-      navExpanded: !this.state.navExpanded
+      mobileNavExpanded: !this.state.mobileNavExpanded
     })
   }
 
   render() {
-    const hideStyle = this.state.navVisible?'red':'green';
     return (
       <header className={styles.header}
-      data-visible={this.state.navVisible}>
+        data-visible={this.state.mobileNavVisible}>
         <Link href="/">
           <a className={styles.logo}>
             EB-SWELL
           </a>
         </Link>
         <Hamburger onClick={this.handleHamburgerClick}
-          className={styles.navToggle}
+          className={styles.hamburger}
           ariaControls="primary-nav" />
         <nav>
           <ul id="primary-nav"
             className={styles.nav}
-            data-visible={this.state.navExpanded}>
+            data-visible={this.state.mobileNavExpanded}>
             <li>
               <a>Forecasts</a>
             </li>
             <li>
-              <a>My Alerts</a>
+              <a>My Waves</a>
             </li>
             <li>
               <a>Contact</a>

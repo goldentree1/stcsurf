@@ -1,17 +1,15 @@
 :root{
   --accent-color: steelblue;
   --main-color: white;
+  --shadow-color: 
 }
 
 /*General*/
-html,
-body {
+body{
   font-size: 16px;
   font-family: 'Quicksand', sans-serif;
-  color: steelblue;
-}
-h1{
-
+  color: var(--accent-color);
+  background-color: var(--main-color);
 }
 h2{
   font-size: 2.5rem;
