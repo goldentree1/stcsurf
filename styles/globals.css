@@ -12,10 +12,10 @@ body{
   background-color: var(--main-color);
 }
 
-h1{
-  
-}
-
-h2{
+h1,h2{
   font-size: 2.5rem;
+  letter-spacing: 0.14rem;
+}
+h3{
+  font-size: 1.5rem;
 }

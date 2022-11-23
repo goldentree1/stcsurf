@@ -1,0 +1,60 @@
+.alignWithCharts {
+    padding-inline: 3.5rem;
+}
+
+.webcamsContainer{
+    padding: 1rem 3.5rem;
+    height: 340px;
+    display: flex;
+    flex-wrap: wrap;
+    gap:1rem;
+    align-content: center;
+}
+.webcam{
+    /* aspect-ratio: 1; */
+    height: 100%;
+    width: 100%;
+    max-width: 550px;
+}
+
+
+.chartsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-x: auto;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.chartsContainer .sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: sticky;
+    top: 4rem;
+    left: 0;
+    flex: 1;
+    padding-bottom: 2.5rem;
+    min-height: fit-content;
+    max-height: calc(100vh - 4rem);
+    align-items: center;
+}
+
+.chartsContainer .charts {
+    min-width: 50rem;
+    flex: 1 1 72%;
+}
+
+.locationText{
+    font-size: 1rem;
+    padding: 0.25rem 0;
+    letter-spacing: 0.25rem;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+@media screen and (min-width: 50rem) {
+    .chartsContainer {
+        overflow-x: visible;
+    }
+}

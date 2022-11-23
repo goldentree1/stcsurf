@@ -51,7 +51,7 @@
     opacity: 0.2;
     width: 0%;
     display: block;
-    transform: translateY(3px);
+    /* transform: translateY(3px); */
     bottom:0;
     border-radius: 1rem;
 }
