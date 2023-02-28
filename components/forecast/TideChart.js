@@ -18,9 +18,11 @@ export default function TideChart({ data }) {
 }
 
 function constructData(data) {
-    const times = data.data.map((tide) => (tide.time))
-    const types = data.data.map((tide) => (tide.type))
-    const heights = data.data.map((tide) => (tide.height))
+    const t = data.map(t => t.data)
+
+    const times = t[0].map((tide) => (tide.time))
+    const types = t[0].map((tide) => (tide.type))
+    const heights = t[0].map((tide) => (tide.height))
     const labels = times.map((utc) => (`${new Date(utc).toLocaleTimeString()}`));
 
     return {
@@ -45,30 +47,32 @@ function constructData(data) {
 }
 
 function constructOptions(data) {
-    const times = data.data.map((tide) => (tide.time))
+    const t = data.map(t => t.data)
+    const times = t[0].map((tide) => (tide.time))
+
     return {
         layout: {
             padding: {
-                top: 100,
+                top: 55,
                 right: 52,
             }
         },
         plugins: {
             datalabels: {
                 formatter: function (value, context) {
-                    return `${context.chart.data.labels[context.dataIndex]}: ${Math.round(value * 100) / 100}m`;
+                    return `${Math.round(value * 100) / 100}m`;
                 }
             },
             weekdaylabels: {
                 dates: times,
                 position: 'top',
-                offset:20,
+                offset: 20,
             },
         },
         scales: {
             x: {
                 position: 'top',
-                display:false,
+                display: false,
                 grid: { display: false, }
             },
             y: {

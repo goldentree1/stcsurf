@@ -1,6 +1,24 @@
-export function getTide(){
+import { connectMongo } from './mongoDb';
+import { Tide } from 'models/Tide';
+
+//Returns tide data for given location ID and date
+export async function getTide(id, date = new Date()) {
+    connectMongo();
+    return await Tide.findOne({
+        location: id,
+        retrieved: {
+            $lte: new Date(date)
+        }
+    }).sort({ retrieved: 'desc' });
+}
+
+
+//TEST
+export function getTideTest() {
     return tideData2;
 }
+
+
 const tideData2 = JSON.parse(`
 {
     "data": [

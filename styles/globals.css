@@ -5,6 +5,9 @@
 }
 
 /*General*/
+html{
+  scroll-behavior: smooth;
+}
 body{
   font-size: 16px;
   font-family: 'Quicksand', sans-serif;
@@ -18,4 +21,15 @@ h1,h2{
 }
 h3{
   font-size: 1.5rem;
+}
+
+/*UTILITIES*/
+.pt-2{
+  padding-top: 1rem;
+}
+.pt-4{
+  padding-top: 2rem;
+}
+.pt-6{
+  padding-top: 3rem;
 }

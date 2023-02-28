@@ -1,0 +1,94 @@
+.header{
+    background-color: var(--accent-color);
+    color: white;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+}
+
+.alignWithCharts {
+    padding-inline: 1.5rem;
+}
+
+.updatedAt{
+    text-align: center;
+    padding: 0.25rem 2rem;
+}
+
+.webcamsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-content: center;
+    flex-direction: column;
+}
+
+.webcam {
+    flex: 1;
+}
+
+.title{
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--accent-color);
+
+}
+.titleInChartsContainer{
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    padding-left: 1.75rem;
+}
+
+
+.chartsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-x: auto;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.chartsContainer .sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: sticky;
+    top: 2rem;
+    left: 0;
+    flex: 1;
+    padding-bottom: 2.5rem;
+    min-height: fit-content;
+    max-height: calc(100vh - 4rem);
+    align-items: center;
+}
+
+.chartsContainer .charts {
+    min-width: 55rem;
+    flex: 1 1 72%;
+}
+
+.locationText {
+    font-size: 1rem;
+    padding: 0.25rem 0;
+    padding-top: 2rem;
+    letter-spacing: 0.25rem;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+@media screen and (min-width: 60rem) {
+    .chartsContainer {
+        overflow-x: visible;
+    }
+
+    .alignWithCharts {
+        padding-inline: 3.5rem;
+    }
+
+    .titleInChartsContainer{
+        padding-inline: 2.5rem;
+    }
+    .webcamsContainer{
+        flex-direction: row;
+    }
+}

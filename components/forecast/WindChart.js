@@ -7,7 +7,7 @@ export default function WindChart({ data }) {
     return (
         <Line
             width={100}
-            height={20}
+            height={25}
             data={constructData(data)}
             options={constructOptions(data)}
         />

@@ -20,6 +20,5 @@ export async function getAllLocationIDs() {
 
 export async function getLocation(id) {
     connectMongo();
-    const location = await Location.findById(id);
-    return location;
+    return await Location.findById(id);
 }

@@ -12,11 +12,12 @@ export class Virtuals {
     }
 
     //Applies virtual fields to object
+    //Very prone to error.. but it works for this project ;-)
     applyTo = (data) => {
         for(let virtual of this.virtuals){
-            const virtualVar = virtual.name.split(".")
+            const virtualVar = virtual.name.split(".");
             if(virtualVar.length === 2){
-                data[virtualVar[0]][virtualVar[1]] = virtual.get(data)
+                data[virtualVar[0]][virtualVar[1]] = virtual.get(data);
             }else{
                 throw new Error("Virtual must be nested in 'data'.")
             }

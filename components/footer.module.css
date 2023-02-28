@@ -1,8 +1,0 @@
-.footer{
-    background: var(--accent-color);
-    color: var(--main-color);
-    text-align: center;
-}
-.footer > *{
-    padding-top: 2rem;
-}

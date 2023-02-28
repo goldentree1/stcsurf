@@ -35,12 +35,18 @@ const forecastSchema = new Schema({
         },
         virtuals:{}, */
     }
-    /* can still structure this if we give it an empty virtuals object in data like above?
-    then on front-end, just destructure EG {virtuals:{faces}, swell, chop, ... etc.} ??? */
+    //Cant use virtuals if we give the data a structure...
+    //But the above is how it should look (it works, and cbf fixing)
 });
 
+//Forecast model
 export const Forecast = models.Forecast || model("Forecast", forecastSchema);
 
+/**
+ * My 'pretend' virtual for wave face...
+ * Couldn't get actual virtuals to work with next.js
+ * and mongoose... but this works.
+ */
 export const forecastVirtuals = new Virtuals([
     {
         name: "data.face",

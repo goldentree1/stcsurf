@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { schedule } from '@netlify/functions';
 import { Forecast } from 'models/Forecast';
+import { Tide } from 'models/Tide';
 import { connectMongo } from 'utils/mongoDb';
 import { getMetOceanDataByLocation } from 'utils/metOcean';
+import { getStormglassTideByLocation } from 'utils/stormglass';
 import { getAllLocationsData } from 'utils/location';
 
 const updateForecasts = async function (event, context) {
@@ -16,12 +18,12 @@ const updateForecasts = async function (event, context) {
             website: "metocean"
         }).save()
 
-        // await new Tide({
-        //     data: await getStormGlassTideDataByLocation(location),
-        //     location,
-        //     retrieved: new Date(),
-        //     website:"stormglass"
-        // }).save()
+        await new Tide({
+            location,
+            data: await getStormglassTideByLocation(location),
+            retrieved: new Date(),
+            website:"stormglass"
+        }).save()
     }
     
     //Trigger page re-build
@@ -31,5 +33,5 @@ const updateForecasts = async function (event, context) {
         statusCode: 200,
     }
 };
-// export const handler = updateForecasts;
+
 export const handler = schedule("1 */12 * * *", updateForecasts);
