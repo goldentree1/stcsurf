@@ -10,14 +10,15 @@ import LocaleDateStamp from '@components/LocaleDateStamp';
 import { getForecast } from 'utils/forecast';
 import { getTide } from 'utils/tide';
 
+//This website only needs St Clair ID.
+const beachID = "62aaf4fcba7c34e01eb928d8";
+
 /**
  * Retrieves St Clair Beach tide and weather data from the database
  * to statically generate the Home Page
  * @returns props for Home Page
  */
 export async function getStaticProps() {
-    //This website only needs St Clair ID.
-    const beachID = "62aaf4fcba7c34e01eb928d8";
 
     // retrieve forecast and tides data
     const forecast = await getForecast(beachID, new Date());
@@ -37,7 +38,7 @@ export async function getStaticProps() {
  * 
  */
 export default class Home extends React.Component {
-    
+
     constructor(props) {
         super(props);
         const { forecast, tide } = this.props;
@@ -56,7 +57,7 @@ export default class Home extends React.Component {
     handleDateChange = async (date) => {
         //retrieve forecast - the swell & wind data
         axios.post("/api/forecast", {
-            id: stClairId,
+            id: beachID,
             date: new Date(date).setHours(23, 59, 59, 999)
         }).then(({ data }) => {
             if (!data) {
@@ -67,7 +68,7 @@ export default class Home extends React.Component {
 
         //retrieve tide data
         axios.post("/api/tide", {
-            id: stClairId,
+            id: beachID,
             date: new Date(date).setHours(23, 59, 59, 999)
         }).then(({ data }) => {
             console.log(data);

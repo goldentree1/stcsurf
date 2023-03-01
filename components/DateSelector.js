@@ -11,6 +11,10 @@ export default class ForecastDateSelector extends React.Component {
         }
     }
 
+    componentDidMount(){
+        this.setState({date: new Date()});
+    }
+
     handleSelect = async (date) => {
         this.setState({ date })
         this.props.onDateChange(date);
