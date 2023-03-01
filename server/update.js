@@ -34,4 +34,4 @@ const updateForecasts = async function (event, context) {
     }
 };
 
-export const handler = schedule("13 */12 * * *", updateForecasts);
+export const handler = schedule("3 */24 * * *", updateForecasts);

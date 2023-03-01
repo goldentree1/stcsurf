@@ -18,6 +18,10 @@ const varsMap = {
     windDir10m: "wind.direction.at-10m",
 };
 
+/**
+ * Returns filtered, DB-ready data from met ocean (marine and wind data)
+ * @param {*} location Location object 
+ */
 export async function getMetOceanDataByLocation(location) {
     const { metserviceCoordinates: { lat, lon }, timeZone } = location;
     const query = makeMetOceanQueryString(lat, lon, Object.values(varsMap), timeZone);

@@ -10,25 +10,34 @@ import LocaleDateStamp from '@components/LocaleDateStamp';
 import { getForecast } from 'utils/forecast';
 import { getTide } from 'utils/tide';
 
-//This website only needs St Clair ID.
-const stClairId = "62aaf4fcba7c34e01eb928d8";
-
+/**
+ * Retrieves St Clair Beach tide and weather data from the database
+ * to statically generate the Home Page
+ * @returns props for Home Page
+ */
 export async function getStaticProps() {
-    //get st clair forecast
-    const forecast = await getForecast(stClairId, new Date());
+    //This website only needs St Clair ID.
+    const beachID = "62aaf4fcba7c34e01eb928d8";
 
-    //get st clair tides
-    const tide = await getTide(stClairId, new Date());
+    // retrieve forecast and tides data
+    const forecast = await getForecast(beachID, new Date());
+    const tide = await getTide(beachID, new Date());
 
     return {
         props: {
             forecast: JSON.stringify(forecast),
             tide: JSON.stringify(tide)
         }
-    };
-};
+    }
+}
 
+/**
+ * Home Page component displays data from
+ * a single Location's most recent Forecast and Tides
+ * 
+ */
 export default class Home extends React.Component {
+    
     constructor(props) {
         super(props);
         const { forecast, tide } = this.props;
@@ -38,8 +47,14 @@ export default class Home extends React.Component {
         };
     };
 
+    /**
+     * Method to handle the Date Selector's date changing.
+     * Attempts to load the new selected date's forecast and tide data
+     * @param {Date} date 
+     * @returns {void}
+     */
     handleDateChange = async (date) => {
-        //Hit forecast api
+        //retrieve forecast - the swell & wind data
         axios.post("/api/forecast", {
             id: stClairId,
             date: new Date(date).setHours(23, 59, 59, 999)
@@ -50,7 +65,7 @@ export default class Home extends React.Component {
             this.setState({ forecast: data });
         }).catch(err => { console.error("Server couldn't find forecast") });
 
-        //Hit tide api
+        //retrieve tide data
         axios.post("/api/tide", {
             id: stClairId,
             date: new Date(date).setHours(23, 59, 59, 999)
@@ -61,8 +76,12 @@ export default class Home extends React.Component {
             }
             this.setState({ tide: data });
         }).catch(err => { console.error("Server couldn't find tide for that date") })
-    };
+    }
 
+    /**
+     * Method to render the page
+     * @returns {React.Component} JSX Page
+     */
     render() {
         const { forecast, tide } = this.state;
         return (
