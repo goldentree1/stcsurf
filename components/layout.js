@@ -7,9 +7,6 @@ export default function Layout({ children, page }) {
             <Head>
                 <link rel="icon" href="/favicon.ico" />
                 <meta name="description" content="Surf Forecast" />
-                <title>
-                    St-Clair Forecast ~ by EB
-                </title>
             </Head>
             <main>
                 {children}
